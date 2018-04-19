@@ -1,0 +1,147 @@
+{block content}
+    <script type="text/javascript">
+        drzAktivni("Fotogalerie");
+    </script>
+    <div class="divBgKontakt">
+        <div class="container">
+            <h1 class="h1Moto">Fotogalerie</h1>
+            <p class="pMainPodtext">Připomeň si proběhlé akce</p>
+            <a href="#divHodnoty" class="aArrowDown"><img class="imgArrowDown" src="{$basePath}/img/down.png" alt="arrow_down" /></a>
+            <script src="{$basePath}/js/js-scrolling.js" type="text/javascript"></script>
+        </div>
+    </div>
+
+
+    <div id="divHodnoty" class="container">
+        <div class="divKontaktTop">
+            <h2 class="h2Aktuality">Fotogalerie proběhlých akcí pořádaných spolkem 4FIS </h2>
+            <p class="pTextAktualita">Spolek 4FIS pořádá nespočet suprových vzdělávacích workshopů a přednášek i nevzdělávacích akcí zábavného charakteru. Pokud jsi se nějaké zůčastnil, jistě se na některé z fotek v příslušné galerii najdeš. Neváhej si prohlédnout i ostatní události, které jsme pro tebe připravili. </p>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="inContainer">
+          {if $count == 1}
+                <div class="divGalerieBlockL">
+                    <div class="divGaleryBig" style="background-image: url('{$basePath}/{$imgs[0]->img}')">
+                        <div class="divInGaleryimage">
+                            <a n:href="single#divHodnoty, $imgs[0]->nId" class="aGalerieImg">
+                            <div class="divGaleryTable">
+                                <div class="divGaleryTableCell">
+                                    <p class="pNadpisGalerie">
+                                        {$imgs[0]->caption} <br />
+                                        {$imgs[0]->time}
+                                    </p>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+          {elseif $count == 2}
+            <div class="divGalerieBlockL">
+                <div class="divGaleryBig" style="background-image: url('{$basePath}/{$imgs[0]->img}')">
+                    <div class="divInGaleryimage">
+                        <a n:href="single#divHodnoty, $imgs[0]->nId" class="aGalerieImg">
+                        <div class="divGaleryTable">
+                            <div class="divGaleryTableCell">
+                                <p class="pNadpisGalerie">
+                                    {$imgs[0]->caption} <br />
+                                    {$imgs[0]->time}
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="divGalerieBlockR">
+                <div class="divGalerySmall" style="background-image: url('{$basePath}/{$imgs[1]->img}')">
+                    <div class="divInGaleryimage">
+                        <a n:href="single#divHodnoty, $imgs[1]->nId" class="aGalerieImg">
+                        <div class="divGaleryTable">
+                            <div class="divGaleryTableCell">
+                                <p class="pNadpisGalerie">
+                                    {$imgs[1]->caption} <br />
+                                    {$imgs[1]->time}
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+          {else}
+              {for $index = 0; $index < $count; $index +=4}
+                <div class="divGalerieBlockL">
+                    <div class="divGaleryBig" style="background-image: url('{$basePath}/{$imgs[$index]->img|noescape}')">
+                        <div class="divInGaleryimage">
+                            <a n:href="single#divHodnoty, $imgs[$index]->nId" class="aGalerieImg">
+                            <div class="divGaleryTable">
+                                <div class="divGaleryTableCell">
+                                    <p class="pNadpisGalerie">
+                                        {$imgs[$index]->caption} <br />
+                                        {$imgs[$index]->time}
+                                    </p>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    {if isset($imgs[$index+1])}
+                        <div class="divGalerySmall" style="background-image: url('{$basePath}/{$imgs[$index+1]->img|noescape}')">
+                            <div class="divInGaleryimage">
+                                <a n:href="single#divHodnoty, $imgs[$index+1]->nId" class="aGalerieImg">
+                                <div class="divGaleryTable">
+                                    <div class="divGaleryTableCell">
+                                        <p class="pNadpisGalerie">
+                                            {$imgs[$index+1]->caption} <br />
+                                            {$imgs[$index+1]->time}
+                                        </p>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                   {/if}
+                </div>
+                {if isset($imgs[$index+2])}
+                <div class="divGalerieBlockR">
+                    <div class="divGalerySmall" style="{$basePath}/background-image: url('{$imgs[$index+2]->img|noescape}')">
+                        <div class="divInGaleryimage">
+                            <a n:href="single#divHodnoty, $imgs[$index+2]->nId" class="aGalerieImg">
+                                <div class="divGaleryTable">
+                                    <div class="divGaleryTableCell">
+                                        <p class="pNadpisGalerie">
+                                            {$imgs[$index+2]->caption} <br />
+                                            {$imgs[$index+2]->time}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {if isset($imgs[$index+3])}
+                        <div class="divGaleryBig" style="background-image: url('{$basePath}/{$imgs[$index+3]->img|noescape}')">
+                            <div class="divInGaleryimage">
+                                <a n:href="single#divHodnoty, $imgs[$index+3]->nId" class="aGalerieImg">
+                                    <div class="divGaleryTable">
+                                        <div class="divGaleryTableCell">
+                                            <p class="pNadpisGalerie">
+                                                {$imgs[$index+3]->caption} <br />
+                                                {$imgs[$index+3]->time}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {/if}
+                </div>
+                {/if}
+              {/for}
+          {/if}
+        </div>
+    </div>
+{/block}

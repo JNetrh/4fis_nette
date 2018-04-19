@@ -1,0 +1,71 @@
+parameters:
+
+doctrine:
+    user: @App\Model\DbFactory::username
+    password: @App\Model\DbFactory::password
+    dbname: @App\Model\DbFactory::dbname
+    host: @App\Model\DbFactory::host
+    metadata:
+        App: %appDir%
+
+
+
+extensions:
+        - WebChemistry\Forms\Controls\DI\MultiplierExtension
+        console: Kdyby\Console\DI\ConsoleExtension
+        events: Kdyby\Events\DI\EventsExtension
+        annotations: Kdyby\Annotations\DI\AnnotationsExtension
+        doctrine: Kdyby\Doctrine\DI\OrmExtension
+
+database:
+#    dsn: 'mysql:host=127.0.0.1;dbname=jakubnetrhcz3'
+    dsn: 'mysql:host=127.0.0.1;dbname=d163159_4fis'
+#    user: jakub-netrh.cz
+    user: jakub
+#    password: 6DnKWH48
+    password: 1234
+
+application:
+	errorPresenter: App\FrontModule\Presenters\Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+
+services:
+	# Managers
+	- App\Model\MembersRepository
+	- App\Model\NewsRepository
+	- App\Model\MyService
+
+	- App\Model\DbFactory
+	- App\Model\Entities\NewsRepo
+	- App\Model\Entities\Tag
+	- App\Model\Entities\User
+	- App\Model\Services\UserService
+	- App\Model\Services\TagsService
+	- App\Model\Services\NewsService
+	- App\Model\Services\RightService
+	- App\Model\Services\JobsService
+	- App\Model\Services\RequirementService
+	- App\Model\Services\GaleryService
+	- App\Model\Services\ImageService
+	authenticator: App\Model\Authenticator
+	authorizatorFactory: App\Model\AuthorizatorFactory
+	authorizator: @authorizatorFactory::create
+
+	- App\Router\RouterFactory
+	router: @App\Router\RouterFactory::createRouter
+
+
+constants:
+    UPLOAD_DIR: ./
+
+
+
+
+

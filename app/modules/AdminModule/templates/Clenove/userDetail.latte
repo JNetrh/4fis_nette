@@ -1,0 +1,45 @@
+{block content}
+    <script type="text/javascript">
+        $("#registrace").addClass('ulMenuActive');
+    </script>
+    <div class="col-md-6">
+        <h1 n:block="title" class="h1PageTop">{$userData->getName()} {$userData->getSurname()}</h1>
+        <div class="divOdsadit-top">
+            <div class="col-md-4">
+                <div class="divSingleFoto">
+                    <img class="imgSingleFoto" src="{$basePath}/{$userData->getImage()}" alt="{$userData->getName()}_{$userData->getSurname()}" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="userText" class="text-left">Text Uživatele:</label>
+                <p id="userText" class="text-justify">{$userData->getAbout()}</p>
+                <p class="text-left"><em>Funkce:</em>  {$userData->getClubposition()}</p>
+                <p class="text-left"><em>Obor studia:</em>  {$userData->getSpecialization()}</p>
+            </div>
+
+
+            <!--upravit informace-->
+
+            <a n:if="$loggedUserId == $userData->getId()" n:href="userEdit $userData->getId()">
+                <button id="btnUpdate" type="button" class="btn btnUpdate">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Upravit údaje
+                </button>
+            </a>
+            <script type="text/javascript">
+
+                $("#btnUpdate").click(function(){
+                    $("#divUpdate").toggleClass("hidden");
+                });
+            </script>
+        </div>
+
+        <div class="row odsazeni-top col-md-6">
+        </div>
+
+    </div>
+
+
+
+
+
+{/block}

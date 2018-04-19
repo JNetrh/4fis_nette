@@ -1,0 +1,67 @@
+{block content}
+
+
+<script type="text/javascript">
+    $("#prace").addClass('ulMenuActive');
+</script>
+<div class="col-md-11">
+    <h1 n:block=title class="h1PageTop">Stáže</h1>
+
+    <div class='col-lg-12 col-md-12 col-sm-12'>
+        <div class='divPagination inContainer'>
+            <table class='tablePaginDemo'>
+                <tr>
+                    {for $i = 1; $i <= $paginator->pageCount; $i++}
+                        {if $paginator->page == $i}
+                            <td class='tdPaginDemoA'><a class='aPaginA' n:href="default, $i">{$i}</a></td>
+                        {else}
+                            <td class='tdPaginDemo'><a class='aPagin' n:href="default, $i">{$i}</a></td>
+                        {/if}
+                    {/for}
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row equal-height-panels">
+
+        <a n:href="new">
+            <div class="col-md-3 text-center">
+                <div class=" panel container-fluid  text-center">
+                    <i class="fa fa-plus-square-o fa-4x zelena center-block odsazeni-top" aria-hidden="true"></i>
+                    <h4 class="zelena">Přidat pozici</h4>
+                </div>
+            </div>
+        </a>
+        {foreach $jobs as $row}
+            <div class="col-md-3">
+                <div class=" panel container-fluid">
+                    <a n:href="detail $row->getId()">
+                        <h4 class="h4AktualityAll">{$row->getCaption()|truncate:31}</h4>
+                    </a>
+                    <a n:href="detail $row->getId()">
+                        <div class="container-fluid text-center"><i class="fa fa-briefcase modra fa-3x" aria-hidden="true"></i></div>
+                    </a>
+                    <div class="text-justify">
+                        {$row->getDescription()|truncate:150}
+                    </div>
+                    <div class="caption">
+                        <p class="modra text-right">
+                            <a n:href="Clenove:userDetail $row->getOwner()->getId() ">
+                                Vytvořil: {$row->getOwner()->getName()} {$row->getOwner()->getSurname()}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.equal-height-panels .panel').matchHeight();
+        });
+    </script>
+</div>
+<div class="col-md-1">
+
+</div>

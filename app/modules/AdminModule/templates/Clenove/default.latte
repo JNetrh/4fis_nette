@@ -1,0 +1,74 @@
+{block content}
+    <script type="text/javascript">
+        $("#registrace").addClass('ulMenuActive');
+    </script>
+<div class="col-md-6">
+    <h1 n:block=title class="h1PageTop">Seznam členů</h1>
+   {if $membersCount > 0}
+    <table  class="table table-hover table-bordered tableSeznamUziv">
+        <tr>
+            <th></th>
+            <th>Jméno</th>
+            <th>příjmení</th>
+            <th>Email</th>
+            <th>Editovat</th>
+            <th n:if="$user->isAllowed('Admin:Clenove', 'handle')">Zobrazovat</th>
+        </tr>
+
+        {foreach $users as $row}
+        <tr>
+            <td class="text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i></td>
+            <td>{$row->getName()}</td>
+            <td class="right">{$row->getSurname()}</td>
+            <td>{$row->getEmail()}</td>
+            <td><a n:href='userDetail, $row->getId()'>Detail</a></td>
+            <td n:if="$user->isAllowed('Admin:Clenove', 'handle')">
+                {*<a n:href='view! $row->id'></a>*}
+                <label class="custom-control custom-checkbox">
+                    <input id="{$row->getId()}" type="checkbox" name="isView" class="custom-control-input hidden" {$row->getMemberDisplay() ? checked}>
+                    <span class="custom-control-indicator"></span>
+                </label>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+
+        <div class='col-lg-12 col-md-12 col-sm-12'>
+            <div class='divPagination inContainer'>
+                <table class='tablePaginDemo'>
+                    <tr>
+                        {for $i = 1; $i <= $paginator->pageCount; $i++}
+                            {if $paginator->page == $i}
+                                <td class='tdPaginDemoA'><a class='aPaginA' n:href="default, $i">{$i}</a></td>
+                            {else}
+                                <td class='tdPaginDemo'><a class='aPagin' n:href="default, $i">{$i}</a></td>
+                            {/if}
+                        {/for}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {/if}
+
+</div>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".custom-control-input").click(function(){
+                var id = $(this).attr('id')
+                var checked = $(this).is(':checked')
+                $.getJSON({link view!}, {'userId' : id, 'checked': checked}, function(payload) {
+
+                    // console.log(payload)
+
+                });
+            })
+        });
+    </script>
+
+<div class="col-md-6"></div>
+{/block}
+{block css}
+    <link rel="stylesheet" href="{$basePath}/css/checkbox.css">
+    {*<link href="{$basePath}/css/checkbox.css" rel="stylesheet" type="text/css"/>*}
+{/block}

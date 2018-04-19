@@ -1,0 +1,125 @@
+{block content}
+    <script type="text/javascript">
+        $("#prace").addClass('ulMenuActive');
+    </script>
+    <h1 n:block="title" class="h1PageTop">Nová stáž</h1>
+    <div class="col-md-6">
+            <!--Úprava aktuality-->
+
+        {form jobsForm}
+            <div class="form-group row divOdsadit-top">
+                <label for="inputCaption" class="col-md-4 col-form-label">Nadpis<em class="cervena">*</em></label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError caption}</span>
+                    {input caption class => 'form-control'}
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="inputText" class="col-md-4 col-form-label">Popis<em class="cervena">*</em></label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError description}</span>
+                    {input description class => 'form-control'}
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="inputText" class="col-md-4 col-form-label">Odkaz</label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError link}</span>
+                    {input link class => 'form-control'}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="selectedTag_0" class="col-md-12 col-form-label">Budeme po tobě vyžadovat<em class="cervena">*</em></label>
+                <!--sem se vypíše nový field pro tagy-->
+                <div class="col-md-10 inContainer">
+                        <div n:multiplier="multiplier_0">
+                            <div class="col-md-10 divOdsazeniInput">
+                                {input text class => 'form-control'}
+                            </div>
+                            <div class="col-md-2 divOdsazeniInput">
+                                {btnRemove 'class' => 'btn btn-primary btnDelete inContainer'}
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-2 inContainer">
+
+                    {btnCreate multiplier_0 class => 'btn btn-primary btnSubmit inContainer'}
+                    {btnCreate $form[multiplier_0]:5}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="selectedTag_0" class="col-md-12 col-form-label">Velkou výhodou jsou<em class="cervena">*</em></label>
+                <!--sem se vypíše nový field pro tagy-->
+                <div class="col-md-10 inContainer">
+                        <div n:multiplier="multiplier_1">
+                            <div class="col-md-10 divOdsazeniInput">
+                                {input text class => 'form-control'}
+                            </div>
+                            <div class="col-md-2 divOdsazeniInput">
+                                {btnRemove 'class' => 'btn btn-primary btnDelete inContainer'}
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-2 inContainer">
+
+                    {btnCreate multiplier_1 class => 'btn btn-primary btnSubmit inContainer'}
+                    {btnCreate $form[multiplier_1]:5}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="selectedTag_0" class="col-md-12 col-form-label">Co za to nabízíme<em class="cervena">*</em></label>
+                <!--sem se vypíše nový field pro tagy-->
+                <div class="col-md-10 inContainer">
+                        <div n:multiplier="multiplier_2">
+                            <div class="col-md-10 divOdsazeniInput">
+                                {input text class => 'form-control'}
+                            </div>
+                            <div class="col-md-2 divOdsazeniInput">
+                                {btnRemove 'class' => 'btn btn-primary btnDelete inContainer'}
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-2 inContainer">
+
+                    {btnCreate multiplier_2 class => 'btn btn-primary btnSubmit inContainer'}
+                    {btnCreate $form[multiplier_2]:5}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="image" class="col-md-4 col-form-label">Obrázek náhledu<em class="cervena">**</em></label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError image}</span>
+                    {input image class => ''}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputNote" class="col-md-4 col-form-label">Poznámka (nezobrazí se)</label>
+                <div class="col-md-7">
+                    {input note class => 'form-control'}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <p class="text-left"><em class="cervena">*</em> Povinné pole</p>
+                <p class="text-left">** Pokud nevyberete obrázek, zobrazí se defaultní</p>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-md-2 col-sm-10">
+                    {input submit class => 'btn btn-primary btnSubmit'}
+                </div>
+            </div>
+        {/form}
+        <script src="{$basePath}/js/forms.js"></script>
+    </div>
+
+{/block}

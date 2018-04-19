@@ -1,0 +1,149 @@
+{block content}
+<div class="divBgHome">
+	<div class="container">
+		<h1 class="h1Moto">Jsme studentský spolek 4FIS</h1>
+		<p class="pMainPodtext">Přidej se k nám</p>
+		<a href="#divHodnoty" class="aArrowDown"><img class="imgArrowDown" src="{$basePath}/img/down.png" alt="arrow_down" /></a>
+		<script src="js/js-scrolling.js" type="text/javascript"></script>
+	</div>
+</div>
+
+<div id="divHodnoty" class="container">
+	<div class="divHodnoty inContainer">
+		<div class="col-lg-3 col-md-6 col-sm-12">
+			<div class="divHodnotyContent">
+				<div><img class="imgHodnoty" src="img/svg/stand-ico.svg" alt="stand"></div>
+				<div><h3 class="h3Hodnoty">Zkušenosti</h3></div>
+				<div>
+					<p class="pHodnoty">
+						Vysoké školy produkují skoro 100&nbsp;tisíc studentů ročně. Jediné, čím se&nbsp;můžeš odlišit, je zužitkovat vědomosti, které&nbsp;jsi již při studiu na vysoké škole získal. Naše vzdělávací akce umožňují získat praktické dovednosti, které využiješ v&nbsp;praxi. Tím získáš znatelný náskok oproti svým vrstevníkům a&nbsp; jsi tak pro&nbsp;firmy zajímavější.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12">
+			<div class="divHodnotyContent">
+				<div><img class="imgHodnoty" src="img/svg/lightBulb-ico.svg" alt="lightbulb"></div>
+				<div><h3 class="h3Hodnoty">Rozvoj</h3></div>
+				<div>
+					<p class="pHodnoty">
+						Chceme pracovat na&nbsp;svých silných stránkách, ale&nbsp;i na&nbsp;tom, co nás baví. I&nbsp;tak je ale dle našeho názoru nutné se&nbsp;rozvíjet v&nbsp;oblastech, ve&nbsp;kterých si&nbsp;zatím nejsme tolik jistí. Pořádáme proto množství vzdělávacích akcí zaměřujících&nbsp;se třeba na&nbsp;softskills nebo hardskills, aby&nbsp;si každý mohl vybrat to&nbsp;své.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12">
+			<div class="divHodnotyContent">
+				<div><img class="imgHodnoty" src="img/svg/student-ico.svg" alt="student"></div>
+				<div><h3 class="h3Hodnoty">Přátelství</h3></div>
+				<div>
+					<p class="pHodnoty">
+						Ať už máš volný čas nebo se&nbsp;pilně učíš, je&nbsp;dobré mít kamarády na&nbsp;které se&nbsp;můžeš obrátit. Popít s&nbsp;nimi ve&nbsp;volnu nebo&nbsp;si navzájem pomoc při&nbsp;semestrální práci. I&nbsp;o&nbsp;tom může být studium na&nbsp;VŠE. Dobrá přátelství přetrvají i&nbsp;po studiu a&nbsp;věříme, že&nbsp;kontakty je&nbsp;důležité si&nbsp;udržovat.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12">
+			<div class="divHodnotyContent">
+				<div><img class="imgHodnoty" src="img/svg/networking-ico.svg" alt="networkin"></div>
+				<div><h3 class="h3Hodnoty">Propojení</h3></div>
+				<div>
+					<p class="pHodnoty">
+						Vždy je&nbsp;dobré znát ty správné lidi, kteří ti mohou ukázat jak dělat věci lépe nebo efektivněji. Nejsnadněji se&nbsp;kontakty navazují na&nbsp;různých akcích. Díky 4FIS máš další možnost se&nbsp;seznámit s&nbsp;vyučujícími, a&nbsp;dokonce i&nbsp;firmami. Nikdy nevíš, kdy se&nbsp;ti během studia, či po&nbsp;jeho skončení, budou takové kontakty hodit.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.imgHodnoty').matchHeight();
+    });
+</script>
+
+<div class="inContainer">
+	<div class="divLine"><span><em class="emCoNaVSE"> Co&nbsp;se&nbsp;děje&nbsp;na&nbsp;VŠE?</em></span></div>
+</div>
+
+<div id="mainAktualita" class="container">
+	<h2 class="h2Aktuality">Aktuální akce</h2>
+	{if !$news}
+		<h3 class="h3Aktualita">Žádné aktuality k zobrazení</h3>
+	{/if}
+    {if $news}
+        {foreach $news as $new}
+			<div class="divBlockAktualita">
+				<div class="divNahledAktualita matchBlock">
+					{*<a href="#">*}
+					<a n:href="Akce:single#divHodnoty, $new->newsId">
+						<img class="imgAktualita" src="{$new->img}" alt="{$new->alt}"/>
+					</a>
+				</div>
+				<div class="divTextAktualita matchBlock">
+					<h3 class="h3Aktualita">{$new->caption}</h3>
+					<label class="labelAktulita">Datum konání: {$new->time}</label>
+					{*<p class="pTextAktualita"><?php if(strlen($row['content'])>=200){echo substr($row['content'], 0, 197)."&nbsp;...";} else echo $row['content']; ?>*}
+					<p class="pTextAktualita">{$new->content}
+					</p>
+				</div>
+			</div>
+        {/foreach}
+    {/if}
+
+
+
+</div>
+
+<div id="sponsors" class="container">
+	<h2 class="h2Aktuality">Sponzoři</h2>
+
+	{*<div class="col-lg-12 hidden-md hidden-sm hidden-xs">*}
+	<div class="hidden-md hidden-sm hidden-xs divObrazky">
+		<table class="tableGalerie">
+			<tr>
+				<td class="tdNavL"><img class="imgSipkaFotoL" src="img/angle_left_2.png" alt="L" onclick="posunGal('R');">      </td>
+				<td class="tdFotky">
+					<div class="divFotky">
+						<table id="tableFotky">
+							<tr>
+								<td class="tdGalerie">
+									<a href="#" data-lightbox="galerie" title="">
+										<img class="imgGalerie" src="img/xport-logo.png" alt="fotka-">
+									</a>
+								</td>
+								<td class="tdGalerie">
+									<a href="#" data-lightbox="galerie" title="">
+										<img class="imgGalerie" src="img/MSD_logo_logotype.png" alt="fotka-">
+									</a>
+								</td>
+								<td class="tdGalerie">
+									<a href="#" data-lightbox="galerie" title="">
+										<img class="imgGalerie" src="img/Ceska_Sporitelna.png" alt="fotka-">
+									</a>
+								</td>
+								<td class="tdGalerie">
+									<a href="#" data-lightbox="galerie" title="">
+										<img class="imgGalerie" src="img/xport-logo.png" alt="fotka-">
+									</a>
+								</td>
+								<td class="tdGalerie">
+									<a href="#" data-lightbox="galerie" title="">
+										<img class="imgGalerie" src="img/MSD_logo_logotype.png" alt="fotka-">
+									</a>
+								</td>
+								<td class="tdGalerie">
+									<a href="#" data-lightbox="galerie" title="">
+										<img class="imgGalerie" src="img/Ceska_Sporitelna.png" alt="fotka-">
+									</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+				<td class="tdNavR"><img class="imgSipkaFotoR" src="img/angle_right_2.png" alt="R" onclick="posunGal('L');">      </td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,65 @@
+{block title}Úvodní stránka{/block}
+{block content}
+<script type="text/javascript">
+    $("#uvod").addClass('ulMenuActive');
+</script>
+
+    <div class="container divUvodContent">
+        <div class="col-md-3 col-sm-4 divUvodOuterOdsazeni">
+            <div class=" divPanelUvod divPanelUvodModra">
+                <a class="modra aUvod" n:href="Clenove:">
+                    <i id="clenove" class="fa fa-address-book-o fa-5x" aria-hidden="true"></i>
+                </a>
+                <a class="modra aUvod odsazeni-top-padding" n:href="Clenove:">
+                    Seznam členů
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 divUvodOuterOdsazeni">
+            <div class=" divPanelUvod divPanelUvodCervena">
+                <a class="cervena aUvod" n:href="Aktuality:">
+                    <i class="fa fa-globe fa-5x" aria-hidden="true"></i>
+                </a>
+                <a class="cervena aUvod odsazeni-top-padding" n:href="Aktuality:">
+                    Aktuality
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 divUvodOuterOdsazeni">
+            <div class=" divPanelUvod divPanelUvodModra">
+                <a class="modra aUvod" n:href="Aktuality:">
+                    <i class="fa fa-briefcase fa-5x" aria-hidden="true"></i>
+                </a>
+                <a class="modra aUvod odsazeni-top-padding" n:href="Aktuality:">
+                    Pracovní pozice
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 divUvodOuterOdsazeni">
+            <div class=" divPanelUvod divPanelUvodOranzova">
+                <a class="oranzova aUvod" n:href="SpravaClenu:">
+                    <i class="fa fa-address-card fa-5x" aria-hidden="true"></i>
+                </a>
+                <a class="oranzova aUvod odsazeni-top-padding" n:href="SpravaClenu:">
+                    Správa členů
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 divUvodOuterOdsazeni">
+            <div class=" divPanelUvod divPanelUvodZelena">
+                <a class="zelena aUvod" n:href=":Front:Homepage:" target="_blank">
+                    <i class="fa fa-hand-pointer-o fa-5x" aria-hidden="true"></i>
+                </a>
+                <a class="zelena aUvod odsazeni-top-padding" n:href=":Front:Homepage:">
+                    Web 4FISu
+                </a>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var width = $(".divPanelUvod").width();
+        console.log(width)
+        $(".divPanelUvod").height(width)
+    });
+</script>

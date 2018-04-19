@@ -1,0 +1,127 @@
+{block content}
+    <script type="text/javascript">
+        $("#aktuality").addClass('ulMenuActive');
+    </script>
+    <h1 n:block="title" class="h1PageTop">Nová aktualita</h1>
+    <div class="col-md-6">
+        <div id="divUpdate">
+            <script type="text/javascript">
+                // přiřadí proměnné všech tagů z php do pole js
+                // výstupem je js pole tagList plné všech dostupných tagů
+                var allTagList = [];
+                var index =0;
+                {foreach $allTags as $tag}
+                    allTagList.push({$tag->getName()});
+                {/foreach}
+                var option = "";
+                for(var i = 0; i < allTagList.length; i++){
+                    option += '<option value="' + allTagList[i] + '">';
+                }
+            </script>
+            <!--Úprava aktuality-->
+
+            {form newsForm}
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputCaption" class="col-md-4 col-form-label">Nadpis<em class="cervena">*</em></label>
+                    <div class="col-md-7">
+                        <span class="cervena" n:ifcontent>{inputError caption}</span>
+                        {input caption class => 'form-control'}
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="inputText" class="col-md-4 col-form-label">Text<em class="cervena">*</em></label>
+                    <div class="col-md-7">
+                        <span class="cervena" n:ifcontent>{inputError content}</span>
+                        {input content class => 'form-control'}
+                    </div>
+                </div>
+
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputFbLink" class="col-md-4 col-form-label">odkaz na fb</label>
+                    <div class="col-md-7">
+                        <span class="cervena" n:ifcontent>{inputError link}</span>
+                        {input link class => 'form-control'}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputNote" class="col-md-4 col-form-label">Poznámka (nezobrazí se)</label>
+                    <div class="col-md-7">
+                        <span class="cervena" n:ifcontent>{inputError note}</span>
+                        {input note class => 'form-control'}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Vyberte tagy</label>
+                    <!--sem se vypíše nový field pro tagy-->
+                    <div class="col-md-7 inContainer">
+                        <div class="col-md-10 inContainer">
+                            <div n:multiplier="multiplier">
+                                <div class="col-md-8 divOdsazeniInput datalist">
+                                    {input text class => 'form-control'}
+                                </div>
+                                <div class="col-md-4 divOdsazeniInput inContainer">
+                                    {btnRemove 'class' => 'btn btn-primary btnDelete'}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 inContainer">
+
+                            {btnCreate multiplier class => 'btn btn-primary btnSubmit'}
+                            {btnCreate $form[multiplier]:5}
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(".datalist").each(function () {
+                        $(this).children().attr('list', index + 'x')
+                        $(this).children().append('<datalist id="' + index + 'x">' + option + '</datalist>')
+                        index++
+                    })
+                </script>
+
+                <div class="form-group row">
+                    <label for="image" class="col-md-4 col-form-label">Obrázek náhledu<em class="cervena">*</em></label>
+                    <div class="col-md-7">
+                        <span class="cervena" n:ifcontent>{inputError image}</span>
+                        {input image class => ''}
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                    <label for="inputSurname" class="col-md-4 col-form-label">Datum a čas<em class="cervena">*</em></label>
+                    <div class="col-md-7">
+                        <span class="cervena" n:ifcontent>{inputError time}</span>
+                        <div class='input-group date' id='datetimepicker1'>
+                            {input time class => 'form-control'}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker({
+                                locale: 'cs',
+                                format: 'YYYY-MM-DD HH:mm'
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-2 col-sm-10">
+                        {input submit class => 'btn btn-primary btnSubmit'}
+                    </div>
+                </div>
+            {/form}
+            <script src="{$basePath}/js/forms.js"></script>
+        </div>
+    </div>
+
+{/block}

@@ -1,0 +1,58 @@
+{block content}
+    <script type="text/javascript">
+        $("#prace").addClass('ulMenuActive');
+    </script>
+
+    <div class="col-md-6">
+        <h1 n:block="title" class="h1PageTop">{$job->getCaption()}</h1>
+        <div class="col-md-8">
+
+            <div class="divStazContent">
+                <p class="text-justify pPopisPanel">{$job->getDescription()}</p>
+                <h3 class="text-left odsazeni-top modra">Budeme po Tobě vyžadovat:</h3>
+                <ul class="ulStaze">
+                    {foreach $job->getRequirements() as $requirement}
+                        {if $requirement->getType() == 0}
+                            <li>{$requirement->getText()}</li>
+                        {/if}
+                    {/foreach}
+                </ul>
+                <h3 class="text-left odsazeni-top modra">Velkou výhodou jsou:</h3>
+                <ul class="ulStaze">
+                    {foreach $job->getRequirements() as $requirement}
+                        {if $requirement->getType() == 1}
+                            <li>{$requirement->getText()}</li>
+                        {/if}
+                    {/foreach}
+                </ul>
+                <h3 class="text-left odsazeni-top modra">Co za to nabízíme</h3>
+                <ul class="ulStaze">
+                    {foreach $job->getRequirements() as $requirement}
+                        {if $requirement->getType() == 2}
+                            <li>{$requirement->getText()}</li>
+                        {/if}
+                    {/foreach}
+                </ul>
+            </div>
+
+            <div class="col-md-12">
+
+                <!--upravit stáž-->
+                <a n:href="edit $job->getId()">
+                    <button id="btnUpdate" type="button" class="btn btnUpdate">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Upravit stáž
+                    </button>
+                </a>
+
+                <!--smazat stáž-->
+                <a n:href="delete $job->getId()">
+                    <button type="button" class="btn btn-primary btnDelete">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i> Smazat stáž
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row odsazeni-top col-md-6">
+    </div>
+{/block}

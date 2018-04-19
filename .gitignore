@@ -1,0 +1,11 @@
+.idea/*
+
+www/img/*
+
+www/admin/img/*
+log/*
+temp/*
+!.gitignore
+!.htaccess
+!web.config
+www/config.ini

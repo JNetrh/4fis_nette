@@ -1,0 +1,123 @@
+{block content}
+    <script type="text/javascript">
+        drzAktivni("Akce");
+    </script>
+    <div class="divBgKontakt">
+        <div class="container">
+            <h1 class="h1Moto">Akce</h1>
+            <p class="pMainPodtext">Procházej nadcházející i minulé akce</p>
+            <a href="#divHodnoty" class="aArrowDown"><img class="imgArrowDown" src="{$basePath}/img/down.png" alt="arrow_down" /></a>
+            <script src="{$basePath}/js/js-scrolling.js" type="text/javascript"></script>
+        </div>
+    </div>
+    <div id="divHodnoty" class="container">
+        <div class="divAkceTop inContainer" id="aktualniAkce">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="divAkceSwitch inContainer">
+                    <div n:class="$currentTag == 'all' ? 'divButtonAkceA' : 'divButtonAkce'">
+                        <a n:href="default#aktualniAkce, $paginatorNext->page, $paginatorPrev->page, 'all'">
+                            <span n:class="$currentTag == 'all' ? 'spanAkceButtonA' : 'spanAkceButton'">Všechny</span>
+                        </a>
+                    </div>
+                    <div n:class="$currentTag == 'vzdělávací' ? 'divButtonAkceA' : 'divButtonAkce'">
+                        <a n:href="default#aktualniAkce, $paginatorNext->page, $paginatorPrev->page, 'vzdělávací'">
+                            <span n:class="$currentTag == 'vzdělávací' ? 'spanAkceButtonA' : 'spanAkceButton'">Vzdělávací</span>
+                        </a>
+                    </div>
+                    <div n:class="$currentTag == 'zábavné' ? 'divButtonAkceA' : 'divButtonAkce'">
+                        <a n:href="default#aktualniAkce, $paginatorNext->page, $paginatorPrev->page, 'zábavné'">
+                            <span n:class="$currentTag == 'zábavné' ? 'spanAkceButtonA' : 'spanAkceButton'">Zábavné</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="divKontaktTop inContainer" id="aktualniAkceFill">
+            <h2 class="h2Aktuality">Aktuální akce</h2>
+            {foreach $newsNext as $row}
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div n:if="$iterator->odd ? $s = 'L' : $s = 'R'" class="divAkceBanner{$s}">
+                        <div class="divAkceLabel bg-oranzova">
+                            <em class="emAkceLabel">
+                                {*<a href="'.$value['odkaz'].'" target=\'_blank\'>*}
+                                <a n:href="single#aktualniAkce, $row->newsId ">
+                                    {$row->caption|truncate:35} &mdash; {$row->time|date:'%d.%m.%Y'}
+                                </a>
+                            </em>
+                        </div>
+                        <div class="divAkceImg">
+                            <a n:href="single#aktualniAkce, $row->newsId ">
+                                <img class="imgAkceBanner" src="{$basePath}/{$row->img}" alt="{$row->alt}" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            {/foreach}
+            <div class='col-lg-12 col-md-12 col-sm-12'>
+                <div class='divPagination inContainer'>
+                    <table class='tablePaginDemo'>
+                        <tr>
+                            {for $i = 1; $i <= $paginatorNext->pageCount; $i++}
+                                {if $paginatorNext->page == $i}
+                                    <td class='tdPaginDemoA'><a class='aPaginA' n:href="default#aktualniAkceFill, $i, $paginatorPrev->page, $currentTag">{$i}</a></td>
+                                {else}
+                                    <td class='tdPaginDemo'><a class='aPagin' n:href="default#aktualniAkceFill, $i, $paginatorPrev->page, $currentTag">{$i}</a></td>
+                                {/if}
+                            {/for}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="divKontaktTop inContainer" id="probehleAkceFill">
+            <h2 class="h2Aktuality">Proběhlé akce</h2>
+            {foreach $newsPrev as $row}
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div n:if="$iterator->odd ? $s = 'L' : $s = 'R'" class="divAkceBanner{$s}">
+                        <div class="divAkceLabel bg-seda">
+                            <em class="emAkceLabel">
+                                {*<a href="'.$value['odkaz'].'" target=\'_blank\'>*}
+                                <a n:href="single#aktualniAkce, $row->newsId">
+                                    {$row->caption|truncate:35} &mdash; {$row->time|date:'%d.%m.%Y'}
+                                </a>
+                            </em>
+                        </div>
+                        <div class="divAkceImg">
+                            <a n:href="single#aktualniAkce, $row->newsId ">
+                                <img class="imgAkceBanner" src="{$basePath}/{$row->img}" alt="{$row->alt}" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            {/foreach}
+            <div class='col-lg-12 col-md-12 col-sm-12'>
+                <div class='divPagination inContainer'>
+                    <table class='tablePaginDemo'>
+                        <tr>
+                            {for $i = 1; $i <= $paginatorPrev->pageCount; $i++}
+                                {if $paginatorPrev->page == $i}
+                                    <td class='tdPaginDemoA'><a class='aPaginA' n:href="default#probehleAkceFill, $paginatorNext->page, $i, $currentTag">{$i}</a></td>
+                                {else}
+                                    <td class='tdPaginDemo'><a class='aPagin' n:href="default#probehleAkceFill, $paginatorNext->page, $i, $currentTag">{$i}</a></td>
+                                {/if}
+                            {/for}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+{/block}

@@ -1,0 +1,29 @@
+{block content}
+
+    <div class="col-md-6">
+        <h1 class="h1PageTop">Váš účet byl pozastaven</h1>
+        <div class=" divOdsadit-top">
+            <p class="cervena text-left">Byla Vám pozastavena veškerá práva včetně prohlížení! Pro bližší informace kontaktujte administrátora:</p>
+        </div>
+        <table class="table table-hover table-bordered tablePrava">
+            <th>Jméno</th>
+            <th>Email</th>
+            {foreach $users as $usr}
+                <tr>
+                    {foreach $usr as $right}
+                        <td n:if="$right->getName() == 'admin'">{$usr->getName()} {$usr->getSurname()}</td>
+                        <td n:if="$right->getName() == 'admin'">{$usr->getEmail()}</td>
+                    {/foreach}
+                </tr>
+            {/foreach}
+        </table>
+        <ul class="list-group">
+
+        </ul>
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+
+{/block}

@@ -1,0 +1,206 @@
+{block content}
+    <script type="text/javascript">
+        $("#prace").addClass('ulMenuActive');
+    </script>
+    <div class="col-md-6">
+
+        <h1 n:block="title" class="h1PageTop">{$job->getCaption()}</h1>
+
+        {form jobsForm}
+        <!--Úprava stáže-->
+            <div class="form-group row divOdsadit-top">
+                <label for="inputCaption" class="col-md-4 col-form-label">Nadpis<em class="cervena">*</em></label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError caption}</span>
+                    {input caption class => 'form-control'}
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="inputText" class="col-md-4 col-form-label">Popis<em class="cervena">*</em></label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError description}</span>
+                    {input description class => 'form-control'}
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="inputText" class="col-md-4 col-form-label">Odkaz</label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError link}</span>
+                    {input link class => 'form-control'}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputCaption" class="col-md-4 col-form-label">Aktivní požadavky:</label>
+                <div class="col-md-7">
+                    <ul class="ulDeleteJobRequire">
+                        {foreach $job->getRequirements() as $requirement}
+                            {if $requirement->getType() == 0}
+                                <li id="ul_{$requirement->getId()}" >{$requirement->getText()} <button req_type="{$requirement->getType()}"  id="{$requirement->getId()}" type="button" class="close deleteTag" data-dismiss="modal" aria-hidden="true"> ×</button></li>
+                            {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="selectedTag_0" class="col-md-12 col-form-label">Budeme po tobě vyžadovat<em class="cervena">*</em></label>
+                <!--sem se vypíše nový field pro tagy-->
+                <div class="col-md-10 inContainer">
+                    <div n:multiplier="multiplier_0">
+                        <div class="col-md-10 divOdsazeniInput">
+                            {input text class => 'form-control'}
+                        </div>
+                        <div class="col-md-2 divOdsazeniInput">
+                            {btnRemove 'class' => 'btn btn-primary btnDelete inContainer'}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 inContainer">
+
+                    {btnCreate multiplier_0 class => 'btn btn-primary btnSubmit inContainer'}
+                    {btnCreate $form[multiplier_0]:5}
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label for="inputCaption" class="col-md-4 col-form-label">Aktivní požadavky:</label>
+                <div class="col-md-7">
+                    <ul class="ulDeleteJobRequire">
+                        {foreach $job->getRequirements() as $requirement}
+                            {if $requirement->getType() == 1}
+                                <li id="ul_{$requirement->getId()}" >{$requirement->getText()} <button req_type="{$requirement->getType()}"  id="{$requirement->getId()}" type="button" class="close deleteTag" data-dismiss="modal" aria-hidden="true"> ×</button></li>
+                            {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="selectedTag_0" class="col-md-12 col-form-label">Velkou výhodou jsou<em class="cervena">*</em></label>
+                <!--sem se vypíše nový field pro tagy-->
+                <div class="col-md-10 inContainer">
+                    <div n:multiplier="multiplier_1">
+                        <div class="col-md-10 divOdsazeniInput">
+                            {input text class => 'form-control'}
+                        </div>
+                        <div class="col-md-2 divOdsazeniInput">
+                            {btnRemove 'class' => 'btn btn-primary btnDelete inContainer'}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 inContainer">
+
+                    {btnCreate multiplier_1 class => 'btn btn-primary btnSubmit inContainer'}
+                    {btnCreate $form[multiplier_1]:5}
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label for="inputCaption" class="col-md-4 col-form-label">Aktivní požadavky:</label>
+                <div class="col-md-7">
+                    <ul class="ulDeleteJobRequire">
+                        {foreach $job->getRequirements() as $requirement}
+                            {if $requirement->getType() == 2}
+                                <li id="ul_{$requirement->getId()}" >{$requirement->getText()} <button req_type="{$requirement->getType()}"  id="{$requirement->getId()}" type="button" class="close deleteTag" data-dismiss="modal" aria-hidden="true"> ×</button></li>
+                            {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="selectedTag_0" class="col-md-12 col-form-label">Co za to nabízíme<em class="cervena">*</em></label>
+                <!--sem se vypíše nový field pro tagy-->
+                <div class="col-md-10 inContainer">
+                    <div n:multiplier="multiplier_2">
+                        <div class="col-md-10 divOdsazeniInput">
+                            {input text class => 'form-control'}
+                        </div>
+                        <div class="col-md-2 divOdsazeniInput">
+                            {btnRemove 'class' => 'btn btn-primary btnDelete inContainer'}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 inContainer">
+
+                    {btnCreate multiplier_2 class => 'btn btn-primary btnSubmit inContainer'}
+                    {btnCreate $form[multiplier_2]:5}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="image" class="col-md-4 col-form-label">Obrázek náhledu<em class="cervena">**</em></label>
+                <div class="col-md-7">
+                    <span class="cervena" n:ifcontent>{inputError image}</span>
+                    {input image class => ''}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputNote" class="col-md-4 col-form-label">Poznámka (nezobrazí se)</label>
+                <div class="col-md-7">
+                    {input note class => 'form-control'}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <p class="text-left"><em class="cervena">*</em> Povinné pole</p>
+                <p class="text-left">** Pokud nevyberete obrázek, zobrazí se defaultní</p>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-md-2 col-sm-10">
+                    {input submit class => 'btn btn-primary btnSubmit'}
+                </div>
+            </div>
+        {/form}
+        <script src="{$basePath}/js/forms.js"></script>
+    </div>
+
+    <div class="col-md-6 divOdsadit-top">
+
+        <div id="divErrors" class="alert alert-danger" >
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        $("#divErrors").hide();
+        $(function () {
+            $(".deleteTag").click(function(){
+                var id = $(this).attr('id')
+                var req_type = $(this).attr('req_type')
+                $.getJSON({link deleteRequire!}, {'requireId' : id, 'jobId': {$job->getId()}, 'req_type': req_type}, function(payload) {
+
+                    console.log(payload)
+                    if(payload.success){
+                        $("#ul_" + id).fadeOut(function () {
+                            $(this).remove()
+                        })
+                    }
+                    else {
+                        $("#divErrors").show().append('<li>Nelze smazat poslední záznam</li>')
+                        setTimeout(function () {
+                            $("#divErrors").slideUp( 650 ).delay(800).html('');
+                        }, 3000)
+                    }
+
+
+                });
+            })
+        });
+    </script>
+
+{/block}

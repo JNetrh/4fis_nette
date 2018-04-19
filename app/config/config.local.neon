@@ -1,0 +1,22 @@
+parameters:
+
+#
+#database:
+#	dsn: 'mysql:host=127.0.0.1;dbname=test'
+#	user:
+#	password:
+#
+#
+#application:
+#	errorPresenter: App\FrontModule\Presenters\Error
+#	mapping:
+#		*: App\*Module\Presenters\*Presenter
+#
+#
+#session:
+#	expiration: 14 days
+#
+#
+#services:
+#	- App\Router\RouterFactory
+#	router: @App\Router\RouterFactory::createRouter

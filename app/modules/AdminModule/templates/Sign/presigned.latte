@@ -1,0 +1,43 @@
+{layout "../@layout-sign.latte"}
+{block content}
+    <div class="col-md-6">
+        <h1 n:block=title class="h1PageTop">Nutná změna hesla</h1>
+
+        {form changePasswordForm}
+            <ul n:if="$form->hasErrors()">
+                <li class="cervena" n:foreach="$form->errors as $error">{$error}</li>
+            </ul>
+
+            <div class="divOdsadit-top">
+                <div class="form-group row">
+                    <label for="inputPasswd1" class="col-md-4 col-form-label">Staré heslo</label>
+                    <div class="col-md-7">
+                        {input password_old class => 'form-control'}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPasswd1" class="col-md-4 col-form-label">Nové heslo</label>
+                    <div class="col-md-7">
+                        {input password class => 'form-control'}
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="inputPasswd2" class="col-md-4 col-form-label">Nové heslo znovu</label>
+                    <div class="col-md-7">
+                        {input password_2 class => 'form-control'}
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="offset-md-2 col-sm-10">
+                        {input submit class => 'btn btn-primary btnSubmit'}
+                    </div>
+                </div>
+
+            </div>
+        {/form}
+    </div>
+{/block}

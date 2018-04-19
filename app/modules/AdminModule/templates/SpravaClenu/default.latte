@@ -1,0 +1,136 @@
+{block content}
+    <script type="text/javascript">
+        $("#opravneni").addClass('ulMenuActive');
+    </script>
+    <div class="col-md-8">
+        <h1 n:block=title class="h1PageTop">Správa členů</h1>
+        <table class="table table-hover table-bordered tablePrava">
+            <th>Jméno</th>
+            <th>Email</th>
+            {foreach $rights as $right}
+                <th>{$right->getName()}</th>
+            {/foreach}
+            {foreach $users as $usr}
+                {if $usr->getEmail() != $user->getIdentity()->email}
+                <tr>
+                    <td class="name">{$usr->getName()} {$usr->getSurname()}</td>
+                    <td class="name">{$usr->getEmail()}</td>
+                    {foreach $rights as $right}
+                        <td>
+
+                            <input n:if="$user->isAllowed('Admin:SpravaClenu', 'handle')" usrId="{$usr->getId()}" rightId="{$right->getId()}" type="checkbox" name="isView" class="custom-control-input" {$usr->hasRight($right) ? checked} >
+
+                            {*{foreach $usr->related('rights') as $rightId}*}
+                                {*{if $rightId->ref('rights', 'rightId')->name == $right->name}<p class="delete" style="display: none">{$rightFlag = true}</p>{/if}*}
+                                {*{breakIf $rightId->ref('rights', 'rightId')->name == $right->name}*}
+                            {*{/foreach}*}
+                            {*<div class="ckbx-style-8">*}
+                                {*<input class="custom-control-input" type="checkbox" id="ckbx-style-8-1" value="1" name="ckbx-style-8" {$rightFlag ? checked}>*}
+                                {*<label for="ckbx-style-8-1"></label>*}
+                            {*</div>*}
+                            {*<label usrId="{$usr->id}" rightId="{$right->id}" iId="{$iterator->getCounter()}" class="custom-control custom-checkbox">*}
+                            {*<input n:if="$user->isAllowed('Admin:SpravaClenu', 'handle')" usrId="{$usr->id}" rightId="{$right->id}" type="checkbox" name="isView" class="custom-control-input" {$rightFlag ? checked} >*}
+                                {*<span class="custom-control-indicator"></span>*}
+                            {*</label>*}
+                        </td>
+                    {/foreach}
+                </tr>
+                {/if}
+            {/foreach}
+            <tr n:if="$user->isAllowed('Admin:SpravaClenu', 'new')">
+                <td>
+                    <a n:href="zobraz!" class="ajax" onclick="showForm()">
+                        <h4 class="zelena" >Přidat uživatele</h4>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    {* modální okno *}
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        {snippet zobraz}
+                <div class="divPopUpContent">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <div class='col-lg-12 col-md-12 col-xs-12'>
+                    {form newUserForm}
+                        <div class="form-group row">
+                            <label for="inputEmail" class="col-md-4 col-form-label">Emailová adresa</label>
+                            <div class="col-md-7">
+                                <span class="cervena" n:ifcontent>{inputError email}</span>
+                                {input email class => 'form-control'}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="inputName" class="col-md-4 col-form-label">Křestní jméno</label>
+                            <div class="col-md-7">
+                                <span class="cervena" n:ifcontent>{inputError name}</span>
+                                {input name class => 'form-control'}
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <label for="inputSurname" class="col-md-4 col-form-label">Příjmení</label>
+                            <div class="col-md-7">
+                                <span class="cervena" n:ifcontent>{inputError surname}</span>
+                                {input surname class => 'form-control'}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="offset-md-2 col-sm-10">
+                                {input submit class => 'btn btn-primary btnSubmit'}
+                            </div>
+                        </div>
+                    {/form}
+                    </div>
+
+                </div>
+        {/snippet}
+    </div>
+
+
+    {* modální okno *}
+    {*<div id="myModale" class="divPopUpBg"  aria-hidden="true">*}
+        {*{snippet zobraz}*}
+                {*<div class="divPopUpContent">*}
+                    {*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*}
+
+                {*</div>*}
+        {*{/snippet}*}
+    {*</div>*}
+
+    <script type="text/javascript">
+        function showForm()
+        {
+            $('#myModal').modal('show');
+        }
+
+        $(function () {
+            $(".custom-control-input").click(function(){
+                var userId = $(this).attr('usrId')
+                var rightId = $(this).attr('rightId')
+                var checked = $(this).is(':checked')
+                $.getJSON({link edit!}, {'userId' : userId, 'rightId' : rightId, 'checked': checked}, function(payload) {
+
+                    console.log(payload)
+
+                });
+            })
+        });
+    </script>
+
+{/block}
+
+{block css}
+    {*<link href="{$basePath}/css/checkboxes.min.css" rel="stylesheet" type="text/css"/>*}
+    {*<link href="{$basePath}/css/checkbox.css" rel="stylesheet" type="text/css"/>*}
+{/block}
+

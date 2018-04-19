@@ -1,0 +1,24 @@
+This zip file contains optimized resources for http://4fis.jakub-netrh.cz/. The optimized resources are listed below in the format of: 
+filename: url
+
+Note: We only include up to 10 MB of optimized contents. If the
+optimized contents of your page are larger than 10 MB, we list them in
+this file too, with 'NOT INCLUDED' to indicate those URLs require
+further optimization.
+
+css/styl2.css: http://4fis.jakub-netrh.cz/css/styl2.css
+css/js-image-slider.css: http://4fis.jakub-netrh.cz/css/js-image-slider.css
+js/forms.js: http://4fis.jakub-netrh.cz/js/forms.js
+js/funkce.js: http://4fis.jakub-netrh.cz/js/funkce.js
+js/nette.ajax.js: http://4fis.jakub-netrh.cz/js/nette.ajax.js
+js/js-scrolling.js: http://4fis.jakub-netrh.cz/js/js-scrolling.js
+js/bootstrap-datetimepicker.js: https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js
+image/logo4FIS.png: http://4fis.jakub-netrh.cz/img/logo4FIS.png
+image/down.png: http://4fis.jakub-netrh.cz/img/down.png
+image/angle_left_2.png: http://4fis.jakub-netrh.cz/img/angle_left_2.png
+image/xport-logo.png: http://4fis.jakub-netrh.cz/img/xport-logo.png
+image/MSD_logo_logotype.png: http://4fis.jakub-netrh.cz/img/MSD_logo_logotype.png
+image/Ceska_Sporitelna.png: http://4fis.jakub-netrh.cz/img/Ceska_Sporitelna.png
+image/angle_right_2.png: http://4fis.jakub-netrh.cz/img/angle_right_2.png
+image/facebook.1.png: http://4fis.jakub-netrh.cz/img/facebook.1.png
+image/home_1300.jpg: http://4fis.jakub-netrh.cz/img/home_1300.jpg

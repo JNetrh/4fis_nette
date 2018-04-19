@@ -1,0 +1,97 @@
+{block content}
+    <script type="text/javascript">
+        drzAktivni("Kontakt");
+    </script>
+    <div class="divBgKontakt">
+        <div class="container">
+            <h1 class="h1Moto">Kontakt</h1>
+            <p class="pMainPodtext">Neostýchejte se nám ozvat, jsme otevření</p>
+            <a href="#divHodnoty" class="aArrowDown"><img class="imgArrowDown" src="{$basePath}/img/down.png" alt="arrow_down" /></a>
+            <script src="js/js-scrolling.js" type="text/javascript"></script>
+        </div>
+    </div>
+
+
+
+    <div id="divHodnoty" class="container">
+        <div class="divKontaktTop">
+            <h2 class="h2Aktuality">Kontaktuj nás</h2>
+            <p class="pPopisOsoby">Jak náš spolek funguje? Kde sídlíme? S&nbsp;kým spolupracujeme a co&nbsp;ti&nbsp;členství přinese? Pokud máš tyto otázky a&nbsp;spoustu dalších, tak nás neváhej kontaktovat pomocí formuláře.</p>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 divBlockTopGap">
+            <p class="pPopisOsoby"><i class="fa fa-lg fa-envelope modra iOdsazeniKontakty" aria-hidden="true"></i> <a href="mailto:4fisclub@gmail.com">4fisclub@gmail.com</a></i></p>
+            <p class="pPopisOsoby"><i class="fa fa-lg fa-phone modra iOdsazeniKontakty" aria-hidden="true"></i> +420 775 962 558</p>
+            <p class="pPopisOsoby"><i class="fa fa-lg fa-facebook-square modra iOdsazeniKontakty" aria-hidden="true"></i> &#64;VSE4FIS</p>
+
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12 divBlockTopGap">
+            {*<form name="odeslatEmail" action="" enctype="multipart/form-data" method="post">*}
+            <form n:name=feedbackForm class=form>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        {*<label for="inputName" class="col-form-label">Jméno a příjmení</label>*}
+                        <label n:name=name class="col-form-label">Jméno a příjmení: </label>
+                        <div class="">
+                            {*<input name="name" type="text" class="form-control" id="inputName" placeholder="Jméno a příjmení">*}
+                            <input n:name=name size=20 class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        {*<label for="inputEmail" class="col-form-label">E-mail</label>*}
+                        <label n:name=email class="col-form-label">E-mail: </label>
+                        <div class="">
+                            {*<input name="email" type="text" class="form-control" id="inputEmail" placeholder="Váš E-mail">*}
+                            <input n:name=email size=20 class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {*<label for="inputNote" class="col-form-label">Zpráva</label>*}
+                        <label n:name=content class="col-form-label">Zpráva: </label>
+                        <div class="">
+                            <input n:name=content size=20 class="form-control">
+                            {*<textarea name="note" class="form-control" rows="7" wrap="soft" id="inputNote" placeholder="Začněte psát..."></textarea>*}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-8">
+                    <div class="form-group">
+                        {*<label for="inputSoucet" class="col-form-label">Kontrolní součet: 3 + 3 = </label>*}
+                        <label n:name=control class="col-form-label">Kontrolní součet: 3 + 3 = </label>
+                        <div class="">
+                            {*<input name="soucet" type="text" class="form-control" id="inputSoucet" placeholder="">*}
+                            <input n:name=control size=20 class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="offset-md-2 col-sm-10">
+                        {*<button type="submit" class="btn btn-primary btnSubmit">Odeslat</button>*}
+                        <input n:name=send class="btn btn-primary btnSubmit">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-7 col-md-7 col-sm-12 divBlockTopGap divKontaktBottom">
+            <iframe class="iframeMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2560.0840213692136!2d14.440237803374194!3d50.08471374465083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94974d182823%3A0x808141f0137007af!2sVysok%C3%A1+%C5%A1kola+ekonomick%C3%A1+v+Praze!5e0!3m2!1scs!2scz!4v1497305577986" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-12 divBlockTopGap divKontaktBottom">
+            <h3 class="h3Aktualita">Kde nás najdete</h3>
+            <p class="pAdresa">Vysoká škola ekonomická v Praze</p>
+            <p class="pPopisOsoby"> nám. Winstona Churchilla 1938/4</p>
+            <p class="pPopisOsoby"> 130 67 Praha 3</p>
+        </div>
+
+
+    </div>
+
+{/block}

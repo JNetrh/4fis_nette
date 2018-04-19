@@ -1,0 +1,90 @@
+{block content}
+<script type="text/javascript">
+    $("#aktuality").addClass('ulMenuActive');
+</script>
+<div class="col-md-11">
+    <h1 n:block=title class="h1PageTop">Aktuality</h1>
+
+    <div class='col-lg-12 col-md-12 col-sm-12'>
+        <div class='divPagination inContainer'>
+            <table class='tablePaginDemo'>
+                <tr>
+                    {for $i = 1; $i <= $paginator->pageCount; $i++}
+                        {if $paginator->page == $i}
+                            <td class='tdPaginDemoA'><a class='aPaginA' n:href="default, $i, $currentTag">{$i}</a></td>
+                        {else}
+                            <td class='tdPaginDemo'><a class='aPagin' n:href="default, $i, $currentTag">{$i}</a></td>
+                        {/if}
+                    {/for}
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row equal-height-panels">
+
+        <a n:if="$user->isAllowed('Admin:Aktuality', 'new')" n:href="new">
+            <div class="col-md-3 text-center">
+                <div class=" panel container-fluid  text-center">
+                    <i class="fa fa-plus-square-o fa-4x zelena center-block odsazeni-top" aria-hidden="true"></i>
+                    <h4 class="zelena">Vytvořit aktualitu</h4>
+                </div>
+            </div>
+        </a>
+        {foreach $news as $row}
+            <div class="col-md-3">
+                <div class=" panel container-fluid">
+                    <a n:href="detail $row->getId()">
+                        <h4 class="h4AktualityAll">{$row->getCaption()|truncate:30}</h4>
+                    </a>
+                    <label class="modra">Datum konání: {$row->getTime()|date:'%d.%m.%Y'}</label>
+                    {if strlen($row->getLink()) != 0}
+                        <a href="{$row->getLink()}" target="_blank">
+                            <label class="labelFbAktuality">
+                                <i class="fa fa-facebook-square  fa-lg modra" aria-hidden="true"></i>
+                            </label>
+                        </a>
+                    {else}
+                        <label class="labelFbAktuality">
+                            <i class="fa fa-facebook-square  fa-lg cervena" aria-hidden="true"></i>
+                        </label>
+                    {/if}
+
+                    <!--vypisování tagů-->
+                    <p class="text-left">
+                        {foreach $row->getTags() as $tag}
+                            {$tag->getName()}
+                        {/foreach}
+                        {*{foreach $row->related('tags') as $tagId}*}
+                            {*{$tagId->id->name} {$iterator->last ? '' : '|'}*}
+                        {*{/foreach}*}
+                    </p>
+                    <a n:href="detail $row->getId()">
+                        <div class="divAktualityNahled" style="background-image: url('{$basePath."/".$row->getImage()|noescape}')"></div>
+                        {*{foreach $row->related('images.owner')->where('category','news') as $img}*}
+                            {*<div class="divAktualityNahled" style="background-image: url('{$basePath."/".$img->img|noescape}')"></div>*}
+                            {*<img class="img-responsive hidden-xs center-block" src="{$basePath}/{$img->img}" alt="{$img->alt}"/>*}
+                        {*{/foreach}*}
+
+                    </a>
+                    <div class="text-justify">
+                        {$row->getContent()|truncate:150}
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.equal-height-panels .panel').matchHeight();
+        });
+    </script>
+
+
+
+
+
+</div>
+<div class="col-md-1">
+
+</div>

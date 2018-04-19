@@ -1,0 +1,84 @@
+{block content}
+    <script type="text/javascript">
+        $("#registrace").addClass('ulMenuActive');
+    </script>
+    <div class="col-md-6">
+        <h1 n:block="title" class="h1PageTop">{$userData->getName()} {$userData->getSurname()}</h1>
+
+            <!--Úprava dat uživatele-->
+
+            <div n:if="$updateForm->hasErrors()" class="alert alert-danger alert-dismissable fade in">
+                <li n:foreach="$updateForm->errors as $error">{$error}</li>
+            </div>
+
+            {*<form name="zmenaUserUdaju" action="process/userUpdateProcess.php" enctype="multipart/form-data" method="post">*}
+            {form updateForm}
+
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputUserText" class="col-md-4 col-form-label">Text uživatele</label>
+                    <div class="col-md-7">
+                        {*<textarea name="about" class="form-control" rows="8" id="inputUserText" placeholder="Maximálně 600 znaků"></textarea>*}
+                        {input about class => 'form-control'}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputSpecialization" class="col-md-4 col-form-label">Co studuješ</label>
+                    <div class="col-md-7">
+                        {*<input name="specialization" type="text" class="form-control" id="inputSpecialization" placeholder="Obor studia" value="">*}
+                        {input specialization class => 'form-control'}
+                    </div>
+                </div>
+
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputClubPosition" class="col-md-4 col-form-label">Funkce ve spolku</label>
+                    <div class="col-md-7">
+                        {*<input name="clubPosition" type="text" class="form-control" id="inputClubPosition" placeholder="Jakou funkci ve spolku zastáváš" value="">*}
+                        {input clubposition class => 'form-control'}
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="image" class="col-md-4 col-form-label">Nový obrázek<em class="cervena">*</em></label>
+                    <div class="col-md-7">
+                        {*<input name="image" type="file" id="image">*}
+                        {input  image class=> 'form-control'}
+                    </div>
+                </div>
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputPasswd_1" class="col-md-4 col-form-label">Heslo<em class="cervena">**</em></label>
+                    <div class="col-md-7">
+                        {*<input name="passwd_1" type="password" class="form-control" id="inputPasswd_1" placeholder="Heslo">*}
+                        {input password class=> 'form-control'}
+                    </div>
+                </div>
+                {*<div class="form-group row divOdsadit-top">*}
+                {*<label for="inputPasswd_2" class="col-md-4 col-form-label">(Zopakovat heslo)<em class="cervena">***</em></label>*}
+                {*<div class="col-md-7">*}
+                {*<input name="passwd_2" type="password" class="form-control" id="inputPasswd_2" placeholder="Nové heslo znovu">*}
+                {*</div>*}
+                {*</div>*}
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <p class="text-left">
+                            <em class="cervena">*</em> Pokud nevybereš nový obrázek, zůstane stávající<br/>
+                            <em class="cervena">**</em> Pro změnu údajů potvrď heslem
+                            {*<br/>*}
+                            {*<em class="cervena">***</em> Pro změnu hesla zopakuj nové heslo*}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-2 col-sm-10">
+                        {input submit class=> 'btn btn-primary btnSubmit'}
+                        {*<button type="submit" class="btn btn-primary btnSubmit">Změnit údaje</button>*}
+                    </div>
+                    {*<input name="id" type='text' class="hidden" value="">*}
+
+                </div>
+
+            {/form}
+            <script src="{$basePath}/js/forms.js"></script>
+    </div>
+{/block}

@@ -1,0 +1,64 @@
+{block content}
+    <script type="text/javascript">
+        $("#aktuality").addClass('ulMenuActive');
+    </script>
+    <div class="col-md-6">
+        <h1 n:block="title" class="h1PageTop">{$new->getCaption()}</h1>
+
+        <div class="col-md-8">
+            <p class="text-left odsazeni-top modra"><strong>Datum konání: {$new->getTime()|date:'%d.%m.%Y'}</strong></p>
+            <p class="text-justify pPopisPanel">{$new->getContent()}</p>
+            <p class="text-left">
+                <strong>tagy: </strong>
+
+                {foreach $new->getTags() as $tag}
+                    {$tag->getName()} {if !$iterator->isLast() } | {/if}
+                {/foreach}
+            </p>
+
+        </div>
+        <div class="col-md-4">
+            <img class="img-responsive hidden-xs odsazeni-top" src="{$basePath}/{$new->getImage()}" alt="{$new->getCaption()}"/>
+            {*{foreach $new->related('images.owner')->where('category','news') as $img}*}
+                {*<img class="img-responsive hidden-xs odsazeni-top" src="{$basePath}/{$img->img}" alt="{$img->alt}"/>*}
+            {*{/foreach}*}
+        </div>
+        <div class="col-md-12">
+
+            <!--upravit aktualitu-->
+            <a n:if="$user->isAllowed('Admin:Aktuality', 'new')"  n:href="edit $new->getId()">
+                <button id="btnUpdate" type="button" class="btn btnUpdate">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Upravit aktualitu
+                </button>
+            </a>
+            <!--přidat/upravit galerii-->
+
+            <a n:href="Galerie:new $new->getId()">
+                <button id="btnGalerie" type="button" class="btn btnUpdate">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Vytvořit galerii
+                </button>
+            </a>
+
+            <a n:href="Galerie:edit $new->getId()">
+                <button id="btnGalerie" type="button" class="btn btnUpdate">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Upravit galerii
+                </button>
+            </a>
+            <script type="text/javascript">
+
+                $("#btnUpdate").click(function(){
+                    $("#divUpdate").toggleClass("hidden");
+                });
+            </script>
+            <!--smazat aktualitu-->
+            <a n:if="$user->isAllowed('Admin:Aktuality', 'new')"  n:href="delete $new->getId()">
+                <button type="button" class="btn btn-primary btnDelete">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> Smazat aktualitu
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row odsazeni-top col-md-6">
+    </div>
+{/block}

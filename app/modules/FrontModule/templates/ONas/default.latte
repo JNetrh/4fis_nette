@@ -1,0 +1,103 @@
+{block content}
+    <script type="text/javascript">
+        drzAktivni("ONas");
+    </script>
+    <div class="divBgHome">
+        <div class="container">
+            <h1 class="h1Moto">O nás</h1>
+            <p class="pMainPodtext">Kdo jsme a čím se zabýváme</p>
+            <a href="#divHodnoty" class="aArrowDown"><img class="imgArrowDown" src="{$basePath}/img/down.png" alt="arrow_down" /></a>
+            <script src="js/js-scrolling.js" type="text/javascript"></script>
+        </div>
+    </div>
+
+    <div id="divHodnoty" class="container">
+        <div class="divOnasPopis">
+            <p>4FIS? Jasně, spolek, který vznikl pod&nbsp;křídly <em class="emONas">Fakulty informatiky a&nbsp;statistiky</em>. Možná si teď pomyslíš, co se v&nbsp;takovém informaticko&nbsp;–statistickém spolku může dít, ale&nbsp;nemusíš&nbsp;se děsit, vážně tam pro&nbsp;legraci neprogramujeme, ani&nbsp;nepočítáme pravděpodobnosti.</p>
+            <p>V&nbsp;našem spolku se&nbsp;setkávají lidi z&nbsp;celé fakulty, informatici, statistici, ekonometři, zkrátka všichni, kteří se&nbsp;chtějí dozvědět novinky z&nbsp;fakulty, podílet&nbsp;se na&nbsp;jejím rozvoji a&nbsp;ještě si&nbsp;stihnout udělat přátele. <em class="emONas">Připravujeme přednášky a&nbsp;workshopy</em> právě z&nbsp;oblastí, které studujeme, <em class="emONas">propojujeme lidi z&nbsp;praxe s&nbsp;lidmi z&nbsp;fakulty</em>, tudíž není problém domluvit&nbsp;si třeba praktickou bakalářku, která může být firmě nápomocná. Abychom&nbsp;se ale jen nevzdělávali, <em class="emONas">setkáváme&nbsp;se i&nbsp;mimo univerzitní půdu</em>, kde&nbsp;spolu probereme novinky, naplánujeme, co&nbsp;budeme dělat dál a&nbsp;dáme&nbsp;si něco na&nbsp;posilněnou.</p>
+            <p>Náš&nbsp;spolek 4FIS&nbsp;je jednoduše místo, kde&nbsp;<em class="emONas">získáš spoustu kamarádů z&nbsp;fakulty</em>, což&nbsp;se určitě hodí, cenné informace a&nbsp;zkušenosti, které pak určitě využiješ v&nbsp;praxi.</p>
+        </div>
+    </div>
+
+    <div id="clenove" class="container">
+        <div class="divFotoClenove">
+            <h2>Členové 4FIS</h2>
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $(".FitToWidth").height($(".FitToWidth").width());
+                });
+                function myShow()
+                {
+                    $('#myModal').modal('show');    // z dokumentace bootstrapu
+                }
+            </script>
+            <div id="allMembers">
+                {foreach $members as $member}
+                    {if $member->member_display == 1 && strlen($member->img) > 1}
+                        <div class='col-lg-3 col-md-6 col-sm-12'>
+                            <a n:href="zobraz! $member->id" class="ajax" onclick="myShow()">
+                                <div onmouseover='showNameOpen({$member->id})' onmouseout='showNameClose()' class='divSingleFoto FitToWidth'>
+                                    <img class='imgSingleFoto' src='{$basePath}/{$member->img}' alt='{$member->alt}'/>
+                                    <div id='{$member->id}' class='divHoverName person'>
+                                        <h3 class='h3JmenoONas'>{$member->alt}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {/if}
+                {/foreach}
+
+                {* modální okno *}
+                <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    {snippet zobraz}
+                        {if isset($singleMember)}
+                            <div class="divPopUpContent">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <div class='col-lg-3 col-md-4 col-xs-4'>
+                                    <div class='divSingleFoto'>
+                                        <img class='imgSingleFoto' src='{$basePath}/{$singleMember->img}' alt='{$singleMember->alt}'/>
+                                    </div>
+                                </div>
+                                <div class='col-lg-9 col-md-8 col-xs-8'>
+                                    <h3>{$singleMember->alt}</h3>
+                                    <label>{$singleMember->specialization}</label><br/>
+                                    <label>{$singleMember->clubposition}</label>
+                                </div>
+                                <div class='col-xs-12'>
+                                    <p class='pPopisOsoby'>{$singleMember->about}</p>
+                                </div>
+                            </div>
+                        {/if}
+                    {/snippet}
+                </div>
+            </div>
+        </div>
+    </div>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $(".FitToWidth").height($(".FitToWidth").width());
+                });
+            </script>
+
+    <div class="container">
+        <div class="inContainer divFotoClenove">
+            <div class="col-lg-4 col-md-4 hideGraphics">
+                <img class="imgGprvky" src="{$basePath}/img/svg/prvky.svg" alt="gPrvky_left" />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="inContainer">
+                    <h2 class="h2Clenstvi">Ještě&nbsp;nejsi&nbsp;členem&nbsp;4FIS?</h2>
+                    <p class="pClenstviPodnadpis">Zaregistruj&nbsp;se, čekáme&nbsp;na&nbsp;tebe!</p>
+                    <div class="divButtonRegistrace">
+                        <a class="aRegistrace" href="https://docs.google.com/forms/d/e/1FAIpQLSfHXye-SvXtJW_X_kszHb2zd5T0nzLRNl6iuOqkj-XqELgHHQ/viewform?entry.327067987&entry.448353698&entry.1715419355" target="_blank">Registrovat</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 hideGraphics">
+                <img class="imgGprvky" src="{$basePath}/img/svg/prvky.svg" alt="gPrvky_left" />
+            </div>
+        </div>
+    </div>
+
+{/block}
