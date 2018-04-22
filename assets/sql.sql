@@ -141,7 +141,7 @@ create table galery
    id                   SERIAL,
    caption              varchar(255) not null,
    owner                BIGINT UNSIGNED,
-   cover                boolean,
+   cover                varchar(255) not null,
    link                 varchar(255) not null,
    directory            varchar(255) not null,
    primary key (id),

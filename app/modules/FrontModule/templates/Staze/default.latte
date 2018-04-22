@@ -7,7 +7,7 @@
             <h1 class="h1Moto">Stáže</h1>
             <p class="pMainPodtext">Pracovní nabídky a možnosti</p>
             <a href="#divHodnoty" class="aArrowDown"><img class="imgArrowDown" src="{$basePath}/img/down.png" alt="arrow_down" /></a>
-            <script src="js/js-scrolling.js" type="text/javascript"></script>
+            <script src="{$basePath}/js/js-scrolling.js" type="text/javascript"></script>
         </div>
     </div>
 
@@ -27,50 +27,46 @@
     <div class="container divOdsaditTopGalrie">
         {if $jobs}
         {foreach $jobs as $job}
-            <div id="intro_{$job->id}" n:class="$iterator->even ? 'divStaz divStazOutEven' : 'divStaz divStazOutOdd'">
+            <div id="intro_{$job->getId()}" n:class="$iterator->even ? 'divStaz divStazOutEven' : 'divStaz divStazOutOdd'">
                 <div class="divStazIntro">
                     <div class="divStazImg col-md-2 col-sm-3 hidden-xs">
                         <div class="inContainer">
-                            {foreach $imgs as $img}
-                                {if $img->owner == $job->id}
-                                    <img class="imgStaze" src="{$basePath}/{$img->img}" alt="{$img->alt}" />
-                                {/if}
-                            {/foreach}
+                            <img class="imgStaze" src="{$basePath}/{$job->getImage()}" alt="{$job->getCaption()}" />
                         </div>
                     </div>
                     <div class="divStazNazev col-md-8 col-sm-6 col-xs-9">
-                        <p class="pStazNazev">{$job->caption}</p>
+                        <p class="pStazNazev">{$job->getCaption()}</p>
                     </div>
                     <div class="divStazMaximalize col-md-2 col-sm-2 col-xs-3">
-                        <div id="fa_{$job->id}" class="inContainer text-right">
+                        <div id="fa_{$job->getId()}" class="inContainer text-right">
                             <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
 
-                <div id="content_{$job->id}" class="divStazContent" style="display: none">
-                    <p class="pTextAktualita">{$job->description}</p>
+                <div id="content_{$job->getId()}" class="divStazContent" style="display: none">
+                    <p class="pTextAktualita">{$job->getDescription()}</p>
                     <h3 class="h3Staze">Budeme po Tobě vyžadovat:</h3>
                     <ul class="ulStaze">
-                        {foreach $requirements->fetchAll() as $req}
-                            {if $req->owner == $job->id && $req->type == 0}
-                                <li>{$req->text}</li>
+                        {foreach $job->getRequirements() as $req}
+                            {if $req->getType() == 0}
+                                <li>{$req->getText()}</li>
                             {/if}
                         {/foreach}
                     </ul>
                     <h3 class="h3Staze">Velkou výhodou jsou:</h3>
                     <ul class="ulStaze">
-                        {foreach $requirements->fetchAll() as $req}
-                            {if $req->owner == $job->id && $req->type == 1}
-                                <li>{$req->text}</li>
+                        {foreach $job->getRequirements() as $req}
+                            {if $req->getType() == 1}
+                                <li>{$req->getText()}</li>
                             {/if}
                         {/foreach}
                     </ul>
                     <h3 class="h3Staze">Co za to nabízíme:</h3>
                     <ul class="ulStaze">
-                        {foreach $requirements->fetchAll() as $req}
-                            {if $req->owner == $job->id && $req->type == 2}
-                                <li>{$req->text}</li>
+                        {foreach $job->getRequirements() as $req}
+                            {if $req->getType() == 2}
+                                <li>{$req->getText()}</li>
                             {/if}
                         {/foreach}
                     </ul>

@@ -160,7 +160,7 @@ class GaleryRepo
 	/**
 	 * @param mixed $owner
 	 */
-	public function setOwner( GaleryRepo $owner ) {
+	public function setOwner( NewsRepo $owner ) {
 		$this->owner = $owner;
 	}
 

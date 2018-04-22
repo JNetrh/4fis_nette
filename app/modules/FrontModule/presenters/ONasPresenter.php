@@ -3,21 +3,22 @@
 namespace App\FrontModule\Presenters;
 
 use Nette;
-
+use App\Model\Services\UserService;
 
 class ONasPresenter  extends BasePresenter
 {
-    private $database;
-    private $membersSet;
 
-    public function __construct(Nette\Database\Context $database)
+    private $membersSet;
+    private $userService;
+
+    public function __construct(UserService $userService)
     {
-        $this->database = $database;
+        $this->userService = $userService;
     }
 
     public function renderDefault(){
         $this->template->now = date(DATE_RFC1036);  // aktuální čas pro ukázku AJAX
-        $this->membersSet = $this->database->query('SELECT users.id, users.name, users.email, users.surname, users.about, users.specialization, users.clubposition, users.member_display, images.category, images.alt, images.img, owner FROM users JOIN images ON (users.id = images.owner) WHERE images.category="people" ORDER BY users.id DESC');
+        $this->membersSet = $this->userService->getAll();
         $this->template->members = $this->membersSet;
 
     }
@@ -29,7 +30,7 @@ class ONasPresenter  extends BasePresenter
     public function handleZobraz( $userId )
     {
 
-        $this->template->singleMember = $this->database->query('SELECT users.id, users.name, users.email, users.surname, users.about, users.specialization, users.clubposition, users.member_display, images.category, images.alt, images.img, owner FROM users JOIN images ON (users.id = images.owner) WHERE images.category="people" AND users.id = ? LIMIT 1', $userId)->fetch();
+        $this->template->singleMember = $this->userService->findById($userId);
         if( $this->isAjax() ) {
             $this->redrawControl('zobraz');         // invalidace snippetu
         } else {

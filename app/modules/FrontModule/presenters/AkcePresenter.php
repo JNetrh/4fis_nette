@@ -3,22 +3,32 @@
 namespace App\FrontModule\Presenters;
 
 use Nette;
-use App\Model\NewsRepository;
+use App\Model\Services\NewsService;
 
 
 class AkcePresenter  extends BasePresenter
 {
 
 
-    /** @var NewsRepository @inject */
-    public $newsRepository;
+    private $newsService;
+
+    public function __construct(NewsService $newsService) {
+        $this->newsService = $newsService;
+    }
 
 
     public Function renderDefault($pageNext = 1, $pagePrev = 1, $tag = 'all')
     {
+        //všechny news s tímto tagem
+        $allNews = $this->newsService->filterNewsByTag(array($tag), $this->newsService->getEntities());
+        $prevNews = $this->newsService->prevNews($allNews);
+        $nextNews = $this->newsService->nextNews($allNews);
+
+
+
         // Zjistíme si celkový počet publikovaných článků
-        $newsCountNext = $this->newsRepository->getNextNewsCount($tag);
-        $newsCountPrev = $this->newsRepository->getPrevNewsCount($tag);
+        $newsCountNext = count($nextNews);
+        $newsCountPrev = count($prevNews);
 
         // Vyrobíme si instanci Paginatoru a nastavíme jej
         $paginatorNext = new Nette\Utils\Paginator;
@@ -28,7 +38,10 @@ class AkcePresenter  extends BasePresenter
         $paginatorNext->setPage($pageNext);
 
         // Z databáze si vytáhneme omezenou množinu článků podle výpočtu Paginatoru
-        $nextNews = $this->newsRepository->findNextNews($paginatorNext->getItemsPerPage(), $paginatorNext->getOffset(), $tag);
+        bdump($paginatorNext->getItemsPerPage());
+        bdump($paginatorNext->getOffset());
+        bdump($nextNews);
+        $nextNews = $this->newsService->getNewsOffset($paginatorNext->getItemsPerPage(), $paginatorNext->getOffset(), $nextNews);
 
 
         $paginatorPrev = new Nette\Utils\Paginator;
@@ -37,7 +50,7 @@ class AkcePresenter  extends BasePresenter
         $paginatorPrev->setPage($pagePrev);
 
 
-        $prevNews = $this->newsRepository->findPrevNews($paginatorPrev->getItemsPerPage(), $paginatorPrev->getOffset(), $tag);
+        $prevNews = $this->newsService->getNewsOffset($paginatorPrev->getItemsPerPage(), $paginatorPrev->getOffset(), $prevNews);
 
         $this->template->newsNext = $nextNews;
         $this->template->newsPrev = $prevNews;
@@ -51,6 +64,6 @@ class AkcePresenter  extends BasePresenter
 
 
     public function renderSingle($id){
-        $this->template->news = $this->newsRepository->getNewsById($id);
+        $this->template->news = $this->newsService->findById($id);
     }
 }

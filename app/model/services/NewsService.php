@@ -78,12 +78,47 @@ class NewsService
 	    return $result;
     }
 
+    public function filterNewsByTag($tag, $news) {
+        $all = $news;
+
+        if($tag[0] == 'all'){
+            return $all;
+        }
+
+        $result = array();
+
+        foreach ($all as $row){
+            $common = $row->getTags()->getValues();
+            $tags = array();
+            foreach ($common as $tag_name){
+                $tags[] = $tag_name->getName();
+            }
+
+
+            if(count(array_intersect($tags, $tag)) == count($row->getTags()->getValues())){
+                $result[] = $row;
+            }
+        }
+
+        return $result;
+    }
+
     public function orderByTime($news){
-		bdump($news);
     	if(count($news) > 1){
 		    usort($news, function ($a, $b) {
 			    if($a->getTime() == $b->getTime()){ return 0 ; }
 			    return ($a->getTime() < $b->getTime()) ? -1 : 1;
+		    });
+	    }
+
+	    return $news;
+    }
+
+    public function orderByTimeRev($news){
+    	if(count($news) > 1){
+		    usort($news, function ($a, $b) {
+			    if($a->getTime() == $b->getTime()){ return 0 ; }
+			    return ($a->getTime() > $b->getTime()) ? -1 : 1;
 		    });
 	    }
 
@@ -100,6 +135,49 @@ class NewsService
 
     public function getEntities() {
         return $this->entities->findAll();
+    }
+
+    public function nextNews($news){
+        $entities = $news;
+        $next = array();
+
+        foreach ($entities as $entity){
+            if($entity->getTime() > date("Y-m-d H:i")) {
+                $next[] = $entity;
+            }
+        }
+
+
+        return $this->orderByTime($next);
+
+
+    }
+
+    public function prevNews($news){
+        $entities = $news;
+        $next = array();
+
+        foreach ($entities as $entity){
+            if($entity->getTime() < date("Y-m-d H:i")) {
+                $next[] = $entity;
+            }
+        }
+
+
+
+
+        return $this->orderByTime($next);
+    }
+
+    public function getNewsOffset($length, $from, $news){
+        $all = $news;
+        $result = array();
+
+        for ($i = $from; $i < ($from+$length); $i++) {
+            if($i < count($all))
+                $result[] = $all[$i];
+        }
+        return $result;
     }
 
 }

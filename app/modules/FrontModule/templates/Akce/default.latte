@@ -43,14 +43,14 @@
                         <div class="divAkceLabel bg-oranzova">
                             <em class="emAkceLabel">
                                 {*<a href="'.$value['odkaz'].'" target=\'_blank\'>*}
-                                <a n:href="single#aktualniAkce, $row->newsId ">
-                                    {$row->caption|truncate:35} &mdash; {$row->time|date:'%d.%m.%Y'}
+                                <a n:href="single#aktualniAkce, $row->getId() ">
+                                    {$row->getCaption()|truncate:35} &mdash; {$row->getTime()|date:'%d.%m.%Y'}
                                 </a>
                             </em>
                         </div>
                         <div class="divAkceImg">
-                            <a n:href="single#aktualniAkce, $row->newsId ">
-                                <img class="imgAkceBanner" src="{$basePath}/{$row->img}" alt="{$row->alt}" />
+                            <a n:href="single#aktualniAkce, $row->getId() ">
+                                <img class="imgAkceBanner" src="{$basePath}/{$row->getImage()}" alt="{$row->getCaption()}" />
                             </a>
                         </div>
                     </div>
@@ -84,14 +84,14 @@
                         <div class="divAkceLabel bg-seda">
                             <em class="emAkceLabel">
                                 {*<a href="'.$value['odkaz'].'" target=\'_blank\'>*}
-                                <a n:href="single#aktualniAkce, $row->newsId">
-                                    {$row->caption|truncate:35} &mdash; {$row->time|date:'%d.%m.%Y'}
+                                <a n:href="single#aktualniAkce, $row->getId()">
+                                    {$row->getCaption()|truncate:35} &mdash; {$row->getTime()|date:'%d.%m.%Y'}
                                 </a>
                             </em>
                         </div>
                         <div class="divAkceImg">
-                            <a n:href="single#aktualniAkce, $row->newsId ">
-                                <img class="imgAkceBanner" src="{$basePath}/{$row->img}" alt="{$row->alt}" />
+                            <a n:href="single#aktualniAkce, $row->getId() ">
+                                <img class="imgAkceBanner" src="{$basePath}/{$row->getimage()}" alt="{$row->getCaption()}" />
                             </a>
                         </div>
                     </div>

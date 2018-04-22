@@ -3,21 +3,21 @@
 namespace App\FrontModule\Presenters;
 
 use Nette;
+use App\Model\Services\JobsService;
 
 
 class StazePresenter  extends BasePresenter
 {
-    private $database;
 
-    public function __construct(Nette\Database\Context $database)
+    private $jobsService;
+
+    public function __construct(JobsService $jobsService)
     {
-        $this->database = $database;
+        $this->jobsService = $jobsService;
     }
 
     public function renderDefault(){
-        $this->template->jobs = $this->database->query('SELECT * FROM jobs');
-        $this->template->imgs = $this->database->query('SELECT * FROM images WHERE category = "jobs" ')->fetchAll();
-        $this->template->requirements = $this->database->query('SELECT * FROM jobsrequire');
+        $this->template->jobs = $this->jobsService->getEntities();
     }
 
 }

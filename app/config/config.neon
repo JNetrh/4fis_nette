@@ -17,13 +17,10 @@ extensions:
         annotations: Kdyby\Annotations\DI\AnnotationsExtension
         doctrine: Kdyby\Doctrine\DI\OrmExtension
 
-database:
-#    dsn: 'mysql:host=127.0.0.1;dbname=jakubnetrhcz3'
-    dsn: 'mysql:host=127.0.0.1;dbname=d163159_4fis'
-#    user: jakub-netrh.cz
-    user: jakub
-#    password: 6DnKWH48
-    password: 1234
+#database:
+#    dsn: 'mysql:host=127.0.0.1;dbname=d163159_4fis'
+#    user: jakub
+#    password: 1234
 
 application:
 	errorPresenter: App\FrontModule\Presenters\Error
@@ -38,8 +35,6 @@ session:
 
 services:
 	# Managers
-	- App\Model\MembersRepository
-	- App\Model\NewsRepository
 	- App\Model\MyService
 
 	- App\Model\DbFactory

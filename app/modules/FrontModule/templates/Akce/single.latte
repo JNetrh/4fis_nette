@@ -16,22 +16,22 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="inContainer">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <h2 n:block="title" class="h2SingleAktualita">{$news->caption}</h2>
+                        <h2 n:block="title" class="h2SingleAktualita">{$news->getCaption()}</h2>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <p class="pDatumSingleAktualita modra"><strong> {$news->time|date:'%d.%m.%Y'}</strong></p>
-                <p class="pSingleAktualita">{$news->content}</p>
-                {if strlen($news->odkaz) > 1}
+                <p class="pDatumSingleAktualita modra"><strong> {$news->getTime()|date:'%d.%m.%Y'}</strong></p>
+                <p class="pSingleAktualita">{$news->getContent()}</p>
+                {if strlen($news->getLink()) > 1}
                 <div class="divSingleAktualitaOdkazy">
-                    <a href="{$news->odkaz}" class="fa fa-facebook" target="_blank">&nbsp;Zobrazit na Facebooku</a>
+                    <a href="{$news->getLink()}" class="fa fa-facebook" target="_blank">&nbsp;Zobrazit na Facebooku</a>
                 </div>
                 {/if}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <img class="imgSingleAktualita" src="{$basePath}/{$news->img}" alt="{$news->alt}"/>
+                <img class="imgSingleAktualita" src="{$basePath}/{$news->getImage()}" alt="{$news->getCaption()}"/>
             </div>
 
 

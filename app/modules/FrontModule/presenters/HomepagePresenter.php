@@ -3,18 +3,21 @@
 namespace App\FrontModule\Presenters;
 
 use Nette;
+use App\Model\Services\NewsService;
 
 
 class HomepagePresenter  extends BasePresenter
 {
-    private $database;
+    private $newsService;
 
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(NewsService $newsService)
     {
-        $this->database = $database;
+        $this->newsService = $newsService;
     }
 
     public function renderDefault(){
-        $this->template->news = $this->database->query('SELECT news.id as newsId, caption, time, content, odkaz, alt, img FROM news JOIN images ON (news.id = images.owner) WHERE time > NOW() ORDER BY news.time ASC LIMIT 3');
+        $news = $this->newsService->getEntities();
+        $news = $this->newsService->nextNews($news);
+        $this->template->news = $this->newsService->getNewsOffset(3, 0, $news);
     }
 }

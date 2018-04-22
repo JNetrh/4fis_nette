@@ -158,7 +158,7 @@ class StazePresenter extends SecuredBasePresenter {
 	    $index = 0;
 	    foreach ($multiplier as $column){
 		    foreach ($column as $row) {
-			    if (strlen($row->text) > 1) {
+			    if (strlen($row->text) > 0) {
 			    	$req = $this->requirementService->newEntity();
 			    	$req->setText($row->text);
 			    	$req->setType($index);

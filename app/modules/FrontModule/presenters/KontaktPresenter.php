@@ -10,11 +10,11 @@ use Nette\Application\UI\Form;
 
 class KontaktPresenter  extends BasePresenter
 {
-    private $database;
 
-    public function __construct(Nette\Database\Context $database)
+
+    public function __construct()
     {
-        $this->database = $database;
+
     }
 
     protected function createComponentFeedbackForm(){

@@ -1,3 +1,121 @@
 {block content}
+    <h1 n:block="title" class="h1PageTop">Galerie - {$galery->getCaption()}</h1>
+
+    <div class="divGalerieButtons odsazeni-top">
+        <!--Změnit informace-->
+        <button id="allImagesBtn" type="button" class="btn btnUpdate btnViews">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Zobrazit galerii
+        </button>
+        <!--Nahrát fotky-->
+        <button id="uploadPhotoBtn" type="button" class="btn btnUpdate btnViews">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Nahrát fotky
+        </button>
+        <!--Změnit cover-->
+        <button id="changeCoverBtn" type="button" class="btn btnUpdate btnViews">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Změnit cover
+        </button>
+        <!--Změnit informace-->
+        <button id="changeInfoBtn" type="button" class="btn btnUpdate btnViews">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Změnit informace
+        </button>
+        {*<button id="{$galery->getId()}" type="button" class="btn btnDelete deleteGaleryBtn">*}
+            {*<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Vymazat galerii*}
+        {*</button>*}
+
+    </div>
+
+    <div id="allImages" class="row equal-height-panels odsazeni-top animated">
+        {foreach $galery->getImages() as $image}
+            <div id="imgBlock_{$image->getId()}" class="col-md-2 col-xs-12 text-center">
+                <div class="container-fluid text-center inContainer samePanel odsazeni-bottom">
+                    <img class="imgSingleFoto center-block " src="{$basePath.'/'.$image->getImage()}" alt="{$image->getAlt()}"/>
+                    <div id="{$image->getId()}" class="divDeleteImg">
+                        <em class="bila"><i class="fa fa-trash-o" aria-hidden="true"></i></em>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+    <div id="uploadPhoto" class="row odsazeni-top animated" style="display: none">
+        <div class="col-md-12">
+            <input id="imagesToUpload" name="galery_img_input[]" multiple type="file">
+        </div>
+    </div>
+    <div id="changeCover" class="row odsazeni-top animated" style="display: none">
+        <div class="col-md-6">
+            <input id="coverToUpload" name="cover_img_input" type="file">
+        </div>
+    </div>
+    <div id="changeInfo" class="row odsazeni-top animated" style="display: none">
+        {form galeryForm}
+            <div class="col-md-6">
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputCaption" class="col-md-4 col-form-label">Nadpis galerie<em class="cervena">*</em></label>
+                    <div class="col-md-7">
+                        <input n:name="caption" type="text" class="form-control" id="inputCaption" placeholder="Nadpis" value="{$galery->getCaption()}">
+                    </div>
+                </div>
+
+                <div class="form-group row divOdsadit-top">
+                    <label for="inputFbLink" class="col-md-4 col-form-label">odkaz na fb</label>
+                    <div class="col-md-7">
+                        <input n:name="link" type="text" class="form-control" id="inputFbLink" placeholder="přidejte odkaz na fb" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="offset-md-2 col-sm-10">
+                        <input n:name="id" type="hidden" value="{$galery->getOwner()->getId()}">
+                        <button type="submit" class="btn btn-primary btnSubmit">Založit galerii</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+
+
+        {/form}
+        <div class="col-md-6">
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var max_files = 0;
+        $(document).ready(function() {
+            $('.equal-height-panels .samePanel').matchHeight();
+        });
+        var imgArry = [];
+
+        {foreach $galery->getImages() as $image}
+            imgArry.push({$basePath} + '/' + {$image->getImage()})
+        {/foreach}
+
+        fileUpload('imagesToUpload')
+        fileUpload('coverToUpload', [{$basePath.'/'.$galery->getCover()}], {link DeleteSImg!, $galery->getId()})
+        fileUpload('imagesToUpload', imgArry, {link deleteSImg!, $galery->getId()});
+
+
+    </script>
 
 {/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

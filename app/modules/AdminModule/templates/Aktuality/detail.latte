@@ -33,13 +33,13 @@
             </a>
             <!--přidat/upravit galerii-->
 
-            <a n:href="Galerie:new $new->getId()">
+            <a n:if="$user->isAllowed('Admin:Galerie', 'new')" n:href="Galerie:new $new->getId()">
                 <button id="btnGalerie" type="button" class="btn btnUpdate">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Vytvořit galerii
                 </button>
             </a>
 
-            <a n:href="Galerie:edit $new->getId()">
+            <a n:if="$user->isAllowed('Admin:Galerie', 'new')" n:href="Galerie:edit $new->getId()">
                 <button id="btnGalerie" type="button" class="btn btnUpdate">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Upravit galerii
                 </button>

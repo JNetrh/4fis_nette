@@ -77,15 +77,15 @@
 			<div class="divBlockAktualita">
 				<div class="divNahledAktualita matchBlock">
 					{*<a href="#">*}
-					<a n:href="Akce:single#divHodnoty, $new->newsId">
-						<img class="imgAktualita" src="{$new->img}" alt="{$new->alt}"/>
+					<a n:href="Akce:single#divHodnoty, $new->getId()">
+						<img class="imgAktualita" src="{$new->getImage()}" alt="{$new->getCaption()}"/>
 					</a>
 				</div>
 				<div class="divTextAktualita matchBlock">
-					<h3 class="h3Aktualita">{$new->caption}</h3>
-					<label class="labelAktulita">Datum konání: {$new->time}</label>
+					<h3 class="h3Aktualita">{$new->getCaption()}</h3>
+					<label class="labelAktulita">Datum konání: {$new->getTime()}</label>
 					{*<p class="pTextAktualita"><?php if(strlen($row['content'])>=200){echo substr($row['content'], 0, 197)."&nbsp;...";} else echo $row['content']; ?>*}
-					<p class="pTextAktualita">{$new->content}
+					<p class="pTextAktualita">{$new->getContent()}
 					</p>
 				</div>
 			</div>

@@ -36,7 +36,7 @@ class AktualityPresenter extends SecuredBasePresenter {
 
 
         $news = $this->service->filterByTag(array($tag));
-        $news = $this->service->orderByTime($news);
+        $news = $this->service->orderByTimeRev($news);
 
         $this->template->news = $news;
 
