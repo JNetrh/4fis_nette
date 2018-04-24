@@ -34,7 +34,7 @@
         {foreach $galeries as $row}
             <div class="col-md-3">
                 <div class=" panel container-fluid">
-                    <a n:href="detail $row->getId()">
+                    <a n:href="edit $row->getId()">
                         <h4 class="h4AktualityAll">{$row->getCaption()|truncate:30}</h4>
                     </a>
                     {if strlen($row->getLink()) != 0}
@@ -57,8 +57,9 @@
                     {*</p>*}
                     {*{foreach $row->related('images.owner', 'galery.newsId')->where('category','galeryCover') as $img}*}
                     <div class="divGalerieNahled">
-                        <a n:href="detail $row->getId()">
-                            <img src="{$basePath."/".$row->getCover()|noescape}" alt="náhled" class="imgNahledGalerie" />
+                        <a n:href="edit $row->getId()">
+                            <img n:if="$row->getCover() != null" src="{$basePath."/".$row->getCover()|noescape}" alt="náhled" class="imgNahledGalerie" />
+                            <img n:if="$row->getCover() == null" src="{$basePath}/img/no-image.svg" alt="náhled" class="imgNahledGalerie" />
                         </a>
                     </div>
                     {*<img class="img-responsive hidden-xs center-block" src="{$basePath}/{$img->img}" alt="{$img->alt}"/>*}

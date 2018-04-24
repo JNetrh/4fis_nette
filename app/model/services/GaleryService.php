@@ -9,6 +9,7 @@
 namespace App\Model\Services;
 
 use App\Model\Entities\GaleryRepo;
+use App\Model\Services\ImageService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kdyby\Doctrine\EntityManager;
 
@@ -41,9 +42,20 @@ class GaleryService {
 
 	public function delete($id){
 		$toDel = $this->findById($id);
+		$dir = $toDel->getDirectory();
 		$toDel->deleteCover();
+		$toDel->setImages(null);
 		$this->entityManager->remove($toDel);
 		$this->entityManager->flush();
+		$this->delTree('img/galerie/'.$dir);
+	}
+
+	public static function delTree($dir) {
+		$files = array_diff(scandir($dir), array('.','..'));
+		foreach ($files as $file) {
+			(is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+		}
+		return rmdir($dir);
 	}
 
 	public function getCount(){
@@ -59,6 +71,30 @@ class GaleryService {
 				$result[] = $all[$i];
 		}
 		return $result;
+	}
+
+
+	public function orderByTime($news){
+		if(count($news) > 1){
+			usort($news, function ($a, $b) {
+				if($a->getTime() == $b->getTime()){ return 0 ; }
+				return ($a->getTime() < $b->getTime()) ? -1 : 1;
+			});
+		}
+
+		return $news;
+	}
+
+	public function orderByTimeRev($news){
+		if(count($news) > 1){
+			usort($news, function ($a, $b) {
+				if($a->getTime() == $b->getTime()){ return 0 ; }
+				bdump('x');
+				return ($a->getTime() > $b->getTime()) ? -1 : 1;
+			});
+		}
+
+		return $news;
 	}
 
 

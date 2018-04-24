@@ -93,6 +93,8 @@ class SignPresenter extends BasePresenter
             $this->flashMessage('Uživatel "' . $values->email . '" byl úspěšně přihlášen.');
             $this->redirect('Uvod:');
         } catch (NS\AuthenticationException $e) {
+
+	        $this->flashMessage('Špatné jméno nebo heslo');
             $form->addError($e->getMessage());
         }
     }

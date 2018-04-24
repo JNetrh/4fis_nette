@@ -179,7 +179,8 @@ class NewsRepo
 	}
 
 	public function setTag(Tag $tag) {
-		$this->tags->add($tag);
+		if(!$this->tags->contains($tag))
+			$this->tags->add($tag);
 	}
 
 

@@ -1,4 +1,7 @@
 {block content}
+    <script type="text/javascript">
+        $("#galerie").addClass('ulMenuActive');
+    </script>
     <h1 n:block="title" class="h1PageTop">Nová galerie</h1>
     {form galeryForm}
         <div class="col-md-6">
@@ -17,46 +20,17 @@
             </div>
 
 
-            {*<script type="text/javascript">*}
-            {*// přiřadí proměnné všech tagů z php do pole js*}
-            {*// výstupem je js pole tagList plné všech dostupných tagů*}
-            {*var allTagList = [];*}
-            {*<?php foreach ($allTags as $tag){*}
-            {*?>*}
-            {*allTagList.push("<?= $tag['name'] ?>");*}
-            {*<?php } ?>*}
-            {*// v následujícím poli jsou pouze tagy, které má přiřazená aktuální aktualita*}
-            {*var currTagList = [];*}
-            {*<?php foreach ($currTags as $tag){*}
-            {*?>*}
-            {*currTagList.push("<?= $tag['name'] ?>");*}
-            {*<?php } ?>*}
-            {*var newNews = false;*}
-            {*</script>*}
-
             {*<div class="form-group row">*}
-            {*<label class="col-md-4 col-form-label">Vyberte tagy</label>*}
-            {*<!--sem se vypíše nový field pro tagy-->*}
-            {*<div id="tagsToProcessed" class="col-md-4">*}
+                {*<label for="cover" class="col-md-4 col-form-label">Obrázek náhledu<em class="cervena">*</em></label>*}
+                {*<div class="col-md-7">*}
+                    {*<input n:name="cover" type="file" id="image">*}
+                {*</div>*}
             {*</div>*}
-            {*<div class="col-md-3">*}
-            {*<div id="appendField" class="btn btn-primary btnUpdate"><i class="fa fa-plus-square-o bila" aria-hidden="true">  </i> přidat Tag</div>*}
-            {*</div>*}
-            {*</div>*}
-            {*<script src="../js/tagsProcesses.js" type="text/javascript"></script>*}
-
-
-            <div class="form-group row">
-                <label for="cover" class="col-md-4 col-form-label">Obrázek náhledu<em class="cervena">*</em></label>
-                <div class="col-md-7">
-                    <input n:name="cover" type="file" id="image">
-                </div>
-            </div>
         </div>
 
-        <div class="col-md-6 odsazeni-top" id="divGalerie">
-            <input id="imagesToUpload" name="galery_img_input[]" multiple type="file" required>
-        </div>
+        {*<div class="col-md-6 odsazeni-top" id="divGalerie">*}
+            {*<input id="imagesToUpload" name="galery_img_input[]" multiple type="file" required>*}
+        {*</div>*}
         <div class="col-md-12">
             <div class="form-group row">
                 <div class="offset-md-2 col-sm-10">
@@ -65,31 +39,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="row odsazeni-top col-md-6">
-                <ul class="list-group">
-                    <li class="list-group-item cervena"></li>
-                </ul>
-            </div>
-        </div>
+
 
 
     {/form}
     <script type="text/javascript">
         fileUpload('imagesToUpload')
-//        $(document).ready(function(){
-//            var uploader = $("#imagesToUpload");
-//            uploader.fileinput({
-//                language: "cs",
-//                allowedFileExtensions: ['png', 'gif', 'jpg', 'jpeg', 'JPG'],
-//                maxFileSize: 2000,
-//                validateInitialCount: true,
-//                maxFileCount: 15,
-//                uploadAsync: false,
-//                showUpload: false,
-//                showRemove: true,
-//                autoReplace: true
-//            });
-//        });
     </script>
 {/block}

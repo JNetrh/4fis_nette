@@ -7,7 +7,8 @@
         <div class="divOdsadit-top">
             <div class="col-md-4">
                 <div class="divSingleFoto">
-                    <img class="imgSingleFoto" src="{$basePath}/{$userData->getImage()}" alt="{$userData->getName()}_{$userData->getSurname()}" />
+                    <img n:if="$userData->getImage() != null" class="imgSingleFoto" src="{$basePath}/{$userData->getImage()}" alt="{$userData->getName()}_{$userData->getSurname()}" />
+                    <img n:if="$userData->getImage() == null" class="imgSingleFoto" src="{$basePath}/img/no-artist-image.jpg" alt="{$userData->getName()}_{$userData->getSurname()}" />
                 </div>
             </div>
             <div class="col-md-8">

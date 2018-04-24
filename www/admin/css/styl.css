@@ -67,7 +67,7 @@
 /* DEKLARACE FONTŮ: */
 body, p, ul, ol, ul li, ol li, table, table td, div, a, a:hover, a:visited, input, textarea, select 
 {
-  font-family: 'myr_pro_regular', 'Lucida Sans Unicode', sans-serif !important;
+  font-family: 'myr_pro_regular', 'Lucida Sans Unicode', sans-serif;
   font-size: 16px;
   font-weight: normal;
   font-style: normal;
@@ -75,7 +75,7 @@ body, p, ul, ol, ul li, ol li, table, table td, div, a, a:hover, a:visited, inpu
 }
 h1, h2, h3, h4, h5, h6, em, button
 {
-  font-family: 'myr_pro_bold', 'Lucida Sans Unicode', sans-serif !important;
+  font-family: 'myr_pro_bold', 'Lucida Sans Unicode', sans-serif;
   font-weight: normal;
   font-style: normal;
 }
@@ -107,6 +107,19 @@ html, body
 
 /*----------------------------------------------------------------------------*/
 /* DIVY: */
+div.divFlashMessage {
+    position: absolute;
+    top: -70px;
+    /*top: 0px;*/
+    left: 50%;
+    margin-left: -200px;
+    margin-top: 15px;
+    width: 400px;
+    padding: 0 15px 15px 15px;
+    background-color: #5371B6;
+    z-index: 3003;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 div.divMenu{
     background-color: #5371B6;
     height: 100%;
@@ -500,6 +513,17 @@ iframe.frameVideo
 /*----------------------------------------------------------------------------*/
 /* SEZNAMY: */
 
+ul
+{
+    padding: 15px 0 0 30px;
+    margin: 0;
+}
+ul li
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: disc;
+}
 .liMenu a{
     background-color: #F16667;
     font-family: 'myr_pro_bold', sans-serif;
@@ -514,6 +538,16 @@ iframe.frameVideo
     color: #F16667;
 }
 
+ul.ulFlashMessage {
+    padding: 0;
+    list-style-type: none;
+}
+ul.ulFlashMessage li {
+    list-style-type: none;
+    padding: 15px 0 0 0;
+    color: #f2f2f2;
+    font-size: 16px;
+}
 ul.ulNav{
     padding: 10px 0 0 0;
 }
@@ -596,35 +630,45 @@ form
 /*----------------------------------------------------------------------------*/
 /* BUTTON */
 
-button.btnSubmit{
+.btn {
+    font-size: 15px !important;
+    font-family: 'myr_pro_bold', sans-serif;
+}
+.btn:hover {
+    font-size: 15px !important;
+    font-family: 'myr_pro_bold', sans-serif;
+}
+
+.btnSubmit{
     background-color: #0CAA8B;
-    font-family: 'myr_pro_regular', sans-serif;
     border: 1px solid #5371B6;
 }
-button.btnSubmit:hover{
+.btnSubmit:hover{
     background-color: #5371B6;
     border: 1px solid #0CAA8B;
 }
 
-button.btnDelete{
+.btnDelete{
     background-color: #F16667;
-    font-family: 'myr_pro_regular', sans-serif;
+    /*font-family: 'myr_pro_bold', sans-serif;*/
     border: 1px solid #FFF;
-    color: #FFF;
+    color: #FFF !important;;
 }
-button.btnDelete:hover{
+.btnDelete:hover{
     background-color: #FFF;
+    /*font-family: 'myr_pro_bold', sans-serif;*/
     border: 1px solid #F16667;
-    color: #F16667 !important;;
+    color: #F16667 !important;
 }
-button.btnUpdate, button.btnUpdate:focus{
+.btnUpdate, .btnUpdate:focus{
     background-color: #F8AF46;
-    font-family: 'myr_pro_regular', sans-serif;
+    /*font-family: 'myr_pro_bold', sans-serif;*/
     border: 1px solid #FFF;
-    color: #FFF;
+    color: #FFF !important;;
 }
 .btnUpdate:hover, .btnUpdate:visited, .btnUpdate:active{
     background-color: #FFF;
+    /*font-family: 'myr_pro_bold', sans-serif;*/
     border: 1px solid #F8AF46;
     color: #F8AF46 !important;
 }

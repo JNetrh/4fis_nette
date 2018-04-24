@@ -8,6 +8,7 @@
 namespace App\Model\Services;
 
 use App\Model\Entities\NewsRepo;
+use App\Model\Services\GaleryService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kdyby\Doctrine\EntityManager;
 
@@ -23,10 +24,12 @@ class NewsService
      * @var EntityManager
      */
     private $entities;
+    private $galeryService;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, GaleryService $galeryService)
     {
         $this->entityManager = $entityManager;
+        $this->galeryService = $galeryService;
         $this->entities = $this->entityManager->getRepository(NewsRepo::class);
     }
 
@@ -45,6 +48,8 @@ class NewsService
         $toDel = $this->findById($id);
         $toDel->deleteImage();
         $toDel->setTags(null);
+        $galery = $this->galeryService->findByVar('owner', $toDel);
+	    $galery == null ? : $galery->setOwner(null);
         $this->entityManager->remove($toDel);
         $this->entityManager->flush();
     }
@@ -95,7 +100,7 @@ class NewsService
             }
 
 
-            if(count(array_intersect($tags, $tag)) == count($row->getTags()->getValues())){
+            if(count(array_intersect($tags, $tag)) == count($row->getTags()->getValues()) && count($row->getTags()->getValues()) != 0){
                 $result[] = $row;
             }
         }
@@ -118,6 +123,7 @@ class NewsService
     	if(count($news) > 1){
 		    usort($news, function ($a, $b) {
 			    if($a->getTime() == $b->getTime()){ return 0 ; }
+			    bdump('x');
 			    return ($a->getTime() > $b->getTime()) ? -1 : 1;
 		    });
 	    }

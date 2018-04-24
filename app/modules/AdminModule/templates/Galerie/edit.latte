@@ -1,4 +1,7 @@
 {block content}
+    <script type="text/javascript">
+        $("#galerie").addClass('ulMenuActive');
+    </script>
     <h1 n:block="title" class="h1PageTop">Galerie - {$galery->getCaption()}</h1>
 
     <div class="divGalerieButtons odsazeni-top">
@@ -18,13 +21,13 @@
         <button id="changeInfoBtn" type="button" class="btn btnUpdate btnViews">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Změnit informace
         </button>
-        {*<button id="{$galery->getId()}" type="button" class="btn btnDelete deleteGaleryBtn">*}
-            {*<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Vymazat galerii*}
-        {*</button>*}
+        <a n:href="delete! $galery->getId()" class="btn btnDelete deleteGaleryBtn">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Vymazat galerii
+        </a>
 
     </div>
 
-    <div id="allImages" class="row equal-height-panels odsazeni-top animated">
+    <div id="allImages" class="row equal-height-panels odsazeni-top animated" >
         {foreach $galery->getImages() as $image}
             <div id="imgBlock_{$image->getId()}" class="col-md-2 col-xs-12 text-center">
                 <div class="container-fluid text-center inContainer samePanel odsazeni-bottom">
@@ -38,12 +41,18 @@
     </div>
     <div id="uploadPhoto" class="row odsazeni-top animated" style="display: none">
         <div class="col-md-12">
-            <input id="imagesToUpload" name="galery_img_input[]" multiple type="file">
+            {form galeryPhotosForm}
+                <input id="imagesToUpload" name="galery_img_input[]" multiple type="file">
+                <button type="submit" class="btn btn-primary btnSubmit odsazeni-top">Přidat obrázky</button>
+            {/form}
         </div>
     </div>
     <div id="changeCover" class="row odsazeni-top animated" style="display: none">
         <div class="col-md-6">
-            <input id="coverToUpload" name="cover_img_input" type="file">
+            {form galeryCoverForm}
+                <input id="coverToUpload" name="cover_img_input" type="file">
+                <button type="submit" class="btn btn-primary btnSubmit odsazeni-top">Změnit cover</button>
+            {/form}
         </div>
     </div>
     <div id="changeInfo" class="row odsazeni-top animated" style="display: none">
@@ -66,7 +75,7 @@
             <div class="col-md-12">
                 <div class="form-group row">
                     <div class="offset-md-2 col-sm-10">
-                        <input n:name="id" type="hidden" value="{$galery->getOwner()->getId()}">
+                        <input n:name="id" type="hidden" value="{$galery->getOwner() == null ? null : $galery->getOwner()->getId()}">
                         <button type="submit" class="btn btn-primary btnSubmit">Založit galerii</button>
                     </div>
                 </div>
@@ -89,14 +98,15 @@
         var imgArry = [];
 
         {foreach $galery->getImages() as $image}
-            imgArry.push({$basePath} + '/' + {$image->getImage()})
+            imgArry.push({$basePath} + '/' + {$image->getImage()});
         {/foreach}
 
-        fileUpload('imagesToUpload')
-        fileUpload('coverToUpload', [{$basePath.'/'.$galery->getCover()}], {link DeleteSImg!, $galery->getId()})
-        fileUpload('imagesToUpload', imgArry, {link deleteSImg!, $galery->getId()});
+        fileUpload('coverToUpload', [ {$galery->getCover() == null ? null : $basePath.'/'.$galery->getCover()} ], {link DeleteCImg!, $galery->getId()});
+        {*fileUpload('imagesToUpload', imgArry, {link deleteSImg!, $galery->getId()});*}
+        fileUpload('imagesToUpload');
 
-
+        deleteGaleryImage({link deleteSImg!}, {'galeryId': {$galery->getId()}});
+        {*deleteGalery({link delete!}, {$galery->getId()});*}
     </script>
 
 {/block}

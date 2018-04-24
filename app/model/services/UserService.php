@@ -74,7 +74,7 @@ class UserService
 
 	public function changePassword($id, $old, $new){
 		$entity = $this->findById($id);
-		if (Passwords::verify($old, $entity->getPassword())) {
+		if (NS\Passwords::verify($old, $entity->getPassword())) {
 			$entity->setPassword($new);
 			$this->saveEntity($entity);
 			return true;

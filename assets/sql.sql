@@ -70,21 +70,6 @@ create table news
 ;
 
 /*==============================================================*/
-/* Table: images                                                */
-/*==============================================================*/
-create table images
-(
-   id                   SERIAL,
-   category             varchar(255),
-   alt                  varchar(255),
-   image                varchar(255) not null,
-   owner                BIGINT UNSIGNED,
-   primary key (id),
-   foreign key (owner) references news (id) on delete CASCADE
-) ENGINE=InnoDB CHARACTER SET utf8
-;
-
-/*==============================================================*/
 /* Table: jobs                                                  */
 /*==============================================================*/
 create table jobs
@@ -141,11 +126,27 @@ create table galery
    id                   SERIAL,
    caption              varchar(255) not null,
    owner                BIGINT UNSIGNED,
-   cover                varchar(255) not null,
-   link                 varchar(255) not null,
+   cover                varchar(255),
+   link                 varchar(255),
+   time                 varchar(255),
    directory            varchar(255) not null,
    primary key (id),
    foreign key (owner) references news (id) on delete set null
+) ENGINE=InnoDB CHARACTER SET utf8
+;
+
+/*==============================================================*/
+/* Table: images                                                */
+/*==============================================================*/
+create table images
+(
+   id                   SERIAL,
+   category             varchar(255),
+   alt                  varchar(255),
+   image                varchar(255) not null,
+   owner                BIGINT UNSIGNED,
+   primary key (id),
+   foreign key (owner) references galery (id) on delete CASCADE
 ) ENGINE=InnoDB CHARACTER SET utf8
 ;
 

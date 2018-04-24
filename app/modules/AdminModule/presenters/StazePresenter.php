@@ -192,7 +192,7 @@ class StazePresenter extends SecuredBasePresenter {
         	$this->jobsService->saveEntity($entity);
 
 
-
+			$this->flashMessage('Stáž úspěšně vytvořena');
 
             $this->redirect('detail', $id);
 
@@ -218,6 +218,7 @@ class StazePresenter extends SecuredBasePresenter {
 
     	$this->jobsService->delete($id);
 
+	    $this->flashMessage('Stáž úspěšně smazána');
 
         $this->redirect('Staze:');
     }

@@ -408,11 +408,16 @@ div.divZpet{
     margin-top: 60px;
     padding: 0;
 }
-    
+div.divGaleryGroup {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 870px;
+}
 div.divGaleryBig{
     width: 570px;
-    height: 570px;
-    margin-top: 30px;
+    height: 540px;
     -webkit-border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
@@ -424,8 +429,7 @@ div.divGaleryBig{
 }
 div.divGalerySmall{
     width: 570px;
-    height: 300px;
-    margin-top: 30px;
+    height: 270px;
     -webkit-border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
@@ -435,13 +439,14 @@ div.divGalerySmall{
     background-position: center center;
     background-size:cover;
 }
-div.divGalerieBlockL{
-    margin-right: 15px;
-    float: left;
+div.divGalerieBlockL,div.divGalerieBlockR{
+    margin-bottom: 30px;
 }
-div.divGalerieBlockR{
+.blockMargin:nth-child(1),.blockMargin:nth-child(2) {
+    margin-right: 15px;
+}
+.blockMargin:nth-child(3), .blockMargin:nth-child(4) {
     margin-left: 15px;
-    float: left;
 }
 div.divGaleryTable{
     display: table;

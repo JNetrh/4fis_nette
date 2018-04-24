@@ -17,9 +17,10 @@ var fileUpload = function (id, images, urlDel){
         showRemove: false,
         showUpload: false,
         uploadAsync: false,
+        maxFileCount: 0,
         autoReplace: true
     };
-    if(images){
+    if(images && images[0] != null){
         match = images[0].match(/\.(jpg|png|gif|jpeg|JPG)\b/);
     }
     if (match != null) {

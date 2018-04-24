@@ -72,6 +72,14 @@ class GaleryRepo
      * right name column
      * @ORM\Column(type="string")
      */
+    protected $time;
+
+
+
+    /**
+     * right name column
+     * @ORM\Column(type="string")
+     */
     protected $directory;
 
 
@@ -147,6 +155,13 @@ class GaleryRepo
 	 * @param mixed $images
 	 */
 	public function setImages( $images ) {
+		if($images == null){
+			$current = $this->getImages();
+			foreach ($current as $item){
+				$this->removeImage($item);
+			}
+			return;
+		}
 		$this->images = $images;
 	}
 
@@ -158,9 +173,9 @@ class GaleryRepo
 	}
 
 	/**
-	 * @param mixed $owner
+	 * @param mixed|null $owner
 	 */
-	public function setOwner( NewsRepo $owner ) {
+	public function setOwner( NewsRepo $owner = null ) {
 		$this->owner = $owner;
 	}
 
@@ -221,6 +236,20 @@ class GaleryRepo
 	 */
 	public function setDirectory( $directory ) {
 		$this->directory = $directory;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getTime() {
+		return $this->time;
+	}
+
+	/**
+	 * @param mixed $time
+	 */
+	public function setTime( $time ) {
+		$this->time = $time;
 	}
 
 

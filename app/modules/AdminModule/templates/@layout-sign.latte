@@ -50,6 +50,11 @@
 
 <body>
 
+<div id="flashMessage" class="divFlashMessage">
+    <ul class="ulFlashMessage">
+    </ul>
+</div>
+
 
 <div class="container-fluid full-height">
     <div class="row content full-height">
@@ -81,7 +86,7 @@
 
 
 
-            <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+            {*<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>*}
 
             {include content}
 
@@ -96,6 +101,12 @@
                 target: $('html')
             });
         });
+        {foreach $flashes as $flash}
+        var flash = {$flash->message};
+        setTimeout(function () {
+            flashMessage(flash);
+        },150)
+        {/foreach}
     </script>
 </div>
 </body>

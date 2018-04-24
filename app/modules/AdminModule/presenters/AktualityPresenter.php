@@ -6,6 +6,7 @@ use Nette;
 use App\Model\Services\NewsService;
 use App\Model\Services\TagsService;
 use App\Model\Services\UserService;
+use App\Model\Services\GaleryService;
 use Nette\Application\UI\Form;
 
 class AktualityPresenter extends SecuredBasePresenter {
@@ -14,31 +15,48 @@ class AktualityPresenter extends SecuredBasePresenter {
 	private $news;
 	private $tagService;
 	private $userService;
+	private $galeryService;
 	public $id;
 
-	public function __construct(NewsService $service, TagsService $tagService, UserService $userService)
+	public function __construct(NewsService $service, TagsService $tagService, UserService $userService, GaleryService $galeryService)
 	{
 		$this->service = $service;
 		$this->news = $this->service->getEntities();
 		$this->tagService = $tagService;
 		$this->userService = $userService;
+		$this->galeryService = $galeryService;
 	}
 
     public Function renderDefault($page, $tag = 'all')
     {
 
-        $newsCount = $this->service->getCount(array($tag));
+	    //všechny news s tímto tagem
+	    $allNews = $this->service->filterNewsByTag(array($tag), $this->service->getEntities());
+	    $allNews = $this->service->orderByTimeRev($allNews);
 
-        $paginator = new Nette\Utils\Paginator;
-        $paginator->setItemCount($newsCount);
-        $paginator->setItemsPerPage(7);
-        $paginator->setPage($page);
+	    $allNews = $this->service->filterNewsByTag(array($tag), $allNews);
 
 
-        $news = $this->service->filterByTag(array($tag));
-        $news = $this->service->orderByTimeRev($news);
+	    // Zjistíme si celkový počet publikovaných článků
+	    $newsCount = count($allNews);
 
-        $this->template->news = $news;
+	    // Vyrobíme si instanci Paginatoru a nastavíme jej
+
+	    $paginator = new Nette\Utils\Paginator;
+	    $paginator->setItemCount($newsCount);
+	    $paginator->setItemsPerPage(7);
+	    $paginator->setPage($page);
+
+	    // Z databáze si vytáhneme omezenou množinu článků podle výpočtu Paginatoru
+	    $allNews = $this->service->getNewsOffset($paginator->getItemsPerPage(), $paginator->getOffset(), $allNews);
+
+
+
+
+
+
+
+        $this->template->news = $allNews;
 
         $this->template->paginator = $paginator;
 
@@ -49,7 +67,9 @@ class AktualityPresenter extends SecuredBasePresenter {
         if(!$id){
             $this->redirect('Aktuality:');
         }
-        $this->template->new = $this->service->findById($id);
+        $entity = $this->service->findById($id);
+        $this->template->new = $entity;
+        $this->template->isGalery = $this->galeryService->findByVar('owner', $entity);
     }
 
     public function renderNew(){
@@ -58,6 +78,7 @@ class AktualityPresenter extends SecuredBasePresenter {
 
     public function actionDelete($id){
 		$this->service->delete($id);
+		$this->flashMessage('Aktualita smazána');
         $this->redirect('Aktuality:');
     }
 
@@ -141,7 +162,6 @@ class AktualityPresenter extends SecuredBasePresenter {
 	    }
 
         $file = $data['image'];
-	    bdump($data);
         $path = $entity->getImage();
         $tagsToProceed = $values['multiplier'];
         if(!$entity->getImage() and $file == null){
@@ -217,7 +237,9 @@ class AktualityPresenter extends SecuredBasePresenter {
         foreach ($tagField as $value)
         {
             if(strlen($value->text) > 0){
-	            $newsTags[] = $this->tagService->createEntity($value->text);
+	            if (!in_array($value->text, $newsTags)) {
+		            $newsTags[] = $this->tagService->createEntity($value->text);
+	            }
             }
         }
 

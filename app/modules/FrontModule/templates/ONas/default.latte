@@ -40,7 +40,7 @@
                                 <div onmouseover='showNameOpen({$member->getId()})' onmouseout='showNameClose()' class='divSingleFoto FitToWidth'>
                                     <img class='imgSingleFoto' src='{$basePath}/{$member->getImage()}' alt='{$member->getName()}_{$member->getSurname()}'/>
                                     <div id='{$member->getId()}' class='divHoverName person'>
-                                        <h3 class='h3JmenoONas'>{$member->getName()}_{$member->getSurname()}</h3>
+                                        <h3 class='h3JmenoONas'>{$member->getName()} {$member->getSurname()}</h3>
                                     </div>
                                 </div>
                             </a>

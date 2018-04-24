@@ -75,13 +75,140 @@ class GaleriePresenter extends SecuredBasePresenter {
         $this->template->new = $new;
     }
 
-    public function actionDelete($id){
-
+    public function handleDelete($id){
+	    $this->galeryService->delete($id);
+	    $this->redirect('Galerie:');
     }
 
-    public function handleDeleteSImg($galeryId){
 
+
+
+	public function handleDeleteSImg($imageId, $galeryId){
+		if($this->isAjax()){
+			$entity = $this->galeryService->findById($galeryId);
+			$imageEntity = $this->imageService->findById($imageId);
+
+			$entity->removeImage($imageEntity);
+			$this->imageService->delete($imageEntity);
+			$this->galeryService->saveEntity($entity);
+
+			$this->payload->success = true;
+
+
+			$this->sendPayload();
+			$this->terminate();
+		}
+
+	}
+
+    public function handleDeleteCImg($galeryId){
+		$entity = $this->galeryService->findById($galeryId);
+		$entity->deleteCover();
+		$this->galeryService->saveEntity($entity);
+	    $this->flashMessage("Cover successfully deleted");
+	    $this->redirect('edit', $entity->getId());
     }
+
+    public function createComponentGaleryPhotosForm(){
+	    $form = new Form;
+	    $form ->addUpload('galery_img_input')
+	          ->addCondition(Form::FILLED)
+	          ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.');
+	    $form->addSubmit('submit', 'Přidat obrázky');
+
+
+
+	    $form->onSuccess[] = [$this, 'galeryPhotosFormSucceeded'];
+
+	    return $form;
+    }
+
+	public function galeryPhotosFormSucceeded($form){
+		$data = $form->getHttpData();
+
+		$entity = $this->galeryService->findById($this->sId);
+		$directory = $entity->getDirectory();
+		isset($data['galery_img_input']) ? $files = $data['galery_img_input'] : $files = null;
+
+		if($files != null){
+			foreach ($files as $file){
+				if(!$file->isImage() and !$file->isOk()){
+					$form->addError('Obrázek se nepodařilo nahrát');
+				}
+
+				$file_ext = strtolower(mb_substr($file->getSanitizedName(), strrpos($file->getSanitizedName(), ".")));
+				$newPath = UPLOAD_DIR.'img/galerie/'.$directory.'/'. uniqid(rand(0,20), TRUE).$file_ext;
+
+
+				$image = $this->imageService->newEntity();
+				$image->setOwner($entity);
+				$image->setAlt($entity->getCaption());
+				$image->setImage($newPath);
+				$image->setCategory($directory);
+				$entity->addImage($image);
+				$file->move($newPath);
+			}
+		}
+
+
+		if(!$form->hasErrors()) {
+
+			$this->galeryService->saveEntity($entity);
+
+			$this->flashMessage('Galerie úspěšně upravena');
+
+
+			$this->redirect('edit', $entity->getId());
+		}
+	}
+
+    public function createComponentGaleryCoverForm(){
+	    $form = new Form;
+	    $form ->addUpload('cover_img_input')
+	          ->addCondition(Form::FILLED)
+	          ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.');
+	    $form->addSubmit('submit', 'Změnit cover');
+
+
+
+	    $form->onSuccess[] = [$this, 'galeryCoverFormSucceeded'];
+
+	    return $form;
+    }
+
+	public function galeryCoverFormSucceeded($form){
+		$data = $form->getHttpData();
+
+		$entity = $this->galeryService->findById($this->sId);
+		$directory = $entity->getDirectory();
+
+		isset($data['cover_img_input']) ? $cover = $data['cover_img_input'] : $cover = null;
+
+
+		if($cover != null){
+			if(!$cover->isImage() and !$cover->isOk()){
+				$form['image']->addError('Obrázek se nepodařilo nahrát');
+			}
+
+			$file_ext = strtolower(mb_substr($cover->getSanitizedName(), strrpos($cover->getSanitizedName(), ".")));
+			$newPath = UPLOAD_DIR.'img/galerie/'.$directory.'/nahledak_'. uniqid(rand(0,20), TRUE).$file_ext;
+
+
+			$entity->setCover($newPath);
+			$cover->move($newPath);
+		}
+
+
+		if(!$form->hasErrors()) {
+
+			$this->galeryService->saveEntity($entity);
+
+			$this->flashMessage('Galerie úspěšně upravena');
+
+
+			$this->redirect('edit', $entity->getId());
+		}
+	}
 
     public function createComponentGaleryForm(){
         $form = new Form;
@@ -89,15 +216,15 @@ class GaleriePresenter extends SecuredBasePresenter {
         $form -> addText('caption');
         $form -> addText('id');
         $form -> addText('link');
-        $form ->addUpload('cover')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.');
-        $form ->addUpload('galery_img_input')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.');
+//        $form ->addUpload('cover')
+//            ->addCondition(Form::FILLED)
+//            ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.');
+//        $form ->addUpload('galery_img_input')
+//            ->addCondition(Form::FILLED)
+//            ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.');
         $form->addSubmit('submit', 'Vytvořit galerii');
 
-        $this->template->newsForm = $form;
+        $this->template->galeryPhotosForm = $form;
 
         $form->onSuccess[] = [$this, 'galeryFormSucceeded'];
 
@@ -109,7 +236,6 @@ class GaleriePresenter extends SecuredBasePresenter {
         $newsId = $data['id'];
         $newsEntity = $this->newsService->findById($newsId);
 
-        $directory = Strings::webalize($newsEntity->getTime());
         isset($data['cover']) ? $cover = $data['cover'] : $cover = null;
         isset($data['galery_img_input']) ? $files = $data['galery_img_input'] : $files = null;
         if($this->sId){
@@ -124,17 +250,22 @@ class GaleriePresenter extends SecuredBasePresenter {
         if(strlen($data['caption']) < 1){
             $form->addError('Název je nutno vyplnit');
         }
-        if(!$newsEntity){
-            $form->addError('Každá galerie musí mít vytvořenou aktualitu');
-        }
-        if($cover == null || $flag){
-            $form->addError('Přidejte náhleďák');
-        }
+//        if(!$newsEntity){
+//            $form->addError('Každá galerie musí mít vytvořenou aktualitu');
+//        }
+//        if($cover == null || $flag){
+//            $form->addError('Přidejte náhleďák');
+//        }
+
+	    if($newsEntity){
+        	$entity->setTime($newsEntity->getTime());
+	    }
 
 
         $entity->setCaption($data['caption']);
         $entity->setLink($data['link']);
         $entity->setOwner($newsEntity);
+	    $directory = Strings::webalize($data['caption']) . '-' . uniqid(rand(0,20), FALSE);
         $entity->setDirectory($directory);
 
 
@@ -163,7 +294,7 @@ class GaleriePresenter extends SecuredBasePresenter {
 
                 $image = $this->imageService->newEntity();
                 $image->setOwner($entity);
-                $image->setAlt($newsEntity->getCaption());
+                $image->setAlt($data['caption']);
                 $image->setImage($newPath);
                 $image->setCategory($directory);
                 $entity->addImage($image);
@@ -182,7 +313,7 @@ class GaleriePresenter extends SecuredBasePresenter {
             else {
                 $this->flashMessage('Galerie úspěšně vytvořena');
             }
-            $this->redirect('detail', $entity->getId());
+            $this->redirect('edit', $entity->getId());
         }
 
     }

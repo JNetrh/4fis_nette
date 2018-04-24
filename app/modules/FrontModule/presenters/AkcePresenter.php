@@ -19,10 +19,14 @@ class AkcePresenter  extends BasePresenter
 
     public Function renderDefault($pageNext = 1, $pagePrev = 1, $tag = 'all')
     {
+
+
         //všechny news s tímto tagem
         $allNews = $this->newsService->filterNewsByTag(array($tag), $this->newsService->getEntities());
         $prevNews = $this->newsService->prevNews($allNews);
         $nextNews = $this->newsService->nextNews($allNews);
+        $nextNews = $this->newsService->orderByTimeRev($nextNews);
+	    $prevNews = $this->newsService->orderByTimeRev($prevNews);
 
 
 
@@ -38,9 +42,6 @@ class AkcePresenter  extends BasePresenter
         $paginatorNext->setPage($pageNext);
 
         // Z databáze si vytáhneme omezenou množinu článků podle výpočtu Paginatoru
-        bdump($paginatorNext->getItemsPerPage());
-        bdump($paginatorNext->getOffset());
-        bdump($nextNews);
         $nextNews = $this->newsService->getNewsOffset($paginatorNext->getItemsPerPage(), $paginatorNext->getOffset(), $nextNews);
 
 

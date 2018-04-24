@@ -79,6 +79,7 @@ class SpravaClenuPresenter extends SecuredBasePresenter {
             $entity = $this->userService->createEntity($values->email, $hashed);
             $entity->setName($values->name);
             $entity->setSurname($values->surname);
+            $entity->addUserRight($this->rightService->findByVar('name', 'presigned'));
 
             $this->userService->saveEntity($entity);
 
@@ -90,7 +91,7 @@ class SpravaClenuPresenter extends SecuredBasePresenter {
                     <body>
                             <h1>Registrace do 4FISu</h1>
                             <p>Ahoj, administrátor Ti právě povolil přístup do správy webu 4fis.cz</p><br />
-                            <p>Přihlásit se můžeš na adrese <a href=\"http://4fis.cz/spravaWebu\">http://4fis.cz/administrace</a></p><br />
+                            <p>Přihlásit se můžeš na adrese <a href=\"http://4fis.cz/administrace\">http://4fis.cz/administrace</a></p><br />
                             <p>Při přihlášení budeš požádán o změnu hesla</p><br />
                             <p>pro první přihlášení použij heslo:<br />".$password."</p><br />
                             <p>S pozdravem<br />
@@ -107,7 +108,7 @@ class SpravaClenuPresenter extends SecuredBasePresenter {
 
             $mailer = new SendmailMailer;
             $mailer->send($mail);
-            $this ->redirect('default');
+            $this ->redirect('SpravaClenu:');
         }
 
 
