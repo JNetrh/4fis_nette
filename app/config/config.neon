@@ -1,5 +1,15 @@
 parameters:
 
+
+mail:
+    smtp: true # zapne SmtpMailer místo SendmailMailer
+    host: smtp-163159.m59.wedos.net
+    username: noreply@4fis.cz
+    password: Gd!3N95@e
+    port: 25
+
+
+
 doctrine:
     user: @App\Model\DbFactory::username
     password: @App\Model\DbFactory::password

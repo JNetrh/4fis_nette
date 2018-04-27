@@ -5,15 +5,21 @@ namespace App\AdminModule\Presenters;
 use Nette;
 use App\Model\Services\UserService;
 use App\Model\Services\RightService;
-use Nette\Mail\Message;
-use Nette\Mail\SendmailMailer;
 use Nette\Application\UI\Form;
+
+use Nette\Mail\Message;
+use Nette\Mail\SmtpMailer;
+
+//
+//use PHPMailer\PHPMailer\PHPMailer;
+//use PHPMailer\PHPMailer\Exception;
 
 class SpravaClenuPresenter extends SecuredBasePresenter {
 
 
     private $userService;
     private $rightService;
+
 
     public function __construct(UserService $userService, RightService $rightService)
     {
@@ -67,7 +73,7 @@ class SpravaClenuPresenter extends SecuredBasePresenter {
 	    $isMail = $this->userService->findByEmail($values->email);
 
 
-        if($isMail > 0){
+        if($isMail){
             $form['email']->addError('Účet s touto emailovou adresou již existuje');
         }
 
@@ -81,7 +87,6 @@ class SpravaClenuPresenter extends SecuredBasePresenter {
             $entity->setSurname($values->surname);
             $entity->addUserRight($this->rightService->findByVar('name', 'presigned'));
 
-            $this->userService->saveEntity($entity);
 
 
             $html = "<html>
@@ -96,18 +101,38 @@ class SpravaClenuPresenter extends SecuredBasePresenter {
                             <p>pro první přihlášení použij heslo:<br />".$password."</p><br />
                             <p>S pozdravem<br />
                             4FIS tým!</p>
+                            <br />
+                            <p>(na tento email neodpovídejte)</p>
                     </body>
                 </html>";
 
+	        bdump('1');
 
-            $mail = new Message;
-            $mail->setFrom('4fisclub@gmail.com')
-                ->addTo($values['email'])
-                ->setSubject('Přístup na 4fis')
-                ->setHtmlBody($html);
+            $mail = new Message();
 
-            $mailer = new SendmailMailer;
-            $mailer->send($mail);
+	        $mail->setFrom('noreply@4fis.cz')
+	             ->addTo($values['email'])
+	             ->setSubject('Přístup na 4fis')
+	             ->setHtmlBody($html);
+
+            bdump('2');
+
+
+
+	        $mailer = new SmtpMailer(array(
+		        'host' => 'smtp-163159.m59.wedos.net',
+		        'username' => 'noreply@4fis.cz',
+		        'password' => 'Gd!3N95@e',
+		        'secure' => 'ssl',
+	        ));
+	        $mailer->send($mail);
+
+	        bdump('3');
+
+
+
+
+	        $this->userService->saveEntity($entity);
             $this ->redirect('SpravaClenu:');
         }
 

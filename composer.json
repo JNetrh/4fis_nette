@@ -27,7 +27,8 @@
 		"kdyby/console": "^2.4",
 		"kdyby/events": "^3.1.1",
 		"kdyby/doctrine-cache": "^2.4",
-		"symfony/config": "~2.7"
+		"symfony/config": "~2.7",
+		"phpmailer/phpmailer": "^6.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0"
