@@ -334,14 +334,15 @@ div.divPopUpBg{
     background-position: left top;
     background-repeat: repeat;
     display: none;
-    z-index: 1001;
+    z-index: 2002;
 }
 div.divPopUpContent{
-    position: fixed;
+    /*position: fixed;*/
     background-color: #FFF;
     padding: 5vh;
-    margin: 10vh 40vh;
-    height: 70vh;
+    width: 66.66666%;
+    margin: 10vh auto;
+    /*height: 70vh;*/
     overflow: auto;
     -webkit-border-radius: 20px 20px 20px 20px;
     -moz-border-radius: 20px 20px 20px 20px;
@@ -557,6 +558,20 @@ div.divStazNazev{
 }
 divStazImg{
     text-align: center;
+}
+div.divPopUpOuter {
+    background-image: url("../img/pozadi-upoutavka.png");
+    background-repeat: repeat;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 2002;
+}
+div.divPopUpInner {
+    background-color: #F2F2F2;
+    width: 80%;
+    min-height: 300px;
+
 }
 img.imgStaze{
     height: 60px;
@@ -910,8 +925,9 @@ td.tdPaginDemoA a{
         margin-top: 20px;
     }
     div.divPopUpContent{
-        margin: 10vh 20vh;
-        height: 80vh;
+        /*margin: 10vh 20vh;*/
+        width: 80%;
+        /*height: 80vh;*/
     }
     em.emAkceLabel a, em.emAkceLabel a:hover{
         font-size: 22px;
@@ -993,10 +1009,11 @@ td.tdPaginDemoA a{
         display: block;
     }
     div.divPopUpContent{
-        margin: 0 auto;
-        height: 100vh;
+        /*margin: 0 auto;*/
+        width: 100%;
+        /*height: 100vh;*/
         padding: 5vh;
-        max-width: 100%;
+        /*max-width: 100%;*/
     }
     div.divOnasPopis{
         margin: 20px auto 0 auto;
@@ -1037,6 +1054,9 @@ td.tdPaginDemoA a{
     }
     a.aArrowDown{
         display: none;
+    }
+    a.aRegistrace {
+        font-size: 20px;
     }
     h2{
         font-size: 25px;

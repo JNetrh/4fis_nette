@@ -57,6 +57,27 @@
 	<title>{ifset title}{include title|stripHtml} | {/ifset} 4FIS</title>
 </head>
 
+
+
+<div class="divPopUpBg" id="popUp">
+	<div class="divPopUpContent">
+		<h2 class="h2PopUp">Jsi prvák a zatím nevíš co a jak?</h2>
+		<p class="pPopUp">Přihlaš se do Kruhů a my Ti se vším poradíme.</p>
+		<div class="divButtonRegistrace">
+			<a class="aRegistrace popUp" href="https://docs.google.com/forms/d/1jqy3_somRvk7zyTQHqHSNg1xr5RXgFAcJEFzCx2vlTw/viewform?edit_requested=true" target="_blank">Přihlásit se</a>
+		</div>
+		<div class="divButtonRegistrace">
+			<a class="aRegistrace popUp" href="#">Přejít na Stránku</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    popUpWindow();
+    $(".popUp").click(function () {
+        closePopUpWindow();
+    })
+</script>
+
 <body class="bg-height">
 	{*<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>*}
 	<header class='headerMenu'>

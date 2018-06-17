@@ -12,6 +12,42 @@ function scrollMain(){
 
 }
 
+function popUpWindow() {
+    var date = Date.now();
+
+    if (typeof(Storage) !== "undefined") {
+        var lastSeen = localStorage.getItem("lastSeen");
+        if(lastSeen){
+            var elapsed = date - lastSeen;
+            var difference = new Date(elapsed);
+            var diff_hours = difference.getHours();
+            var diff_mins = difference.getMinutes();
+            if (diff_hours > 22) {
+                scrolling(false);
+                $("#popUp").show();
+                localStorage.setItem("lastSeen", date);
+
+            }
+
+        }
+        else {
+            scrolling(false);
+            var popUp = $("#popUp").show();
+            localStorage.setItem("lastSeen", date);
+
+        }
+
+    } else {
+        console.log('no localStorage supported')
+    }
+
+}
+
+function closePopUpWindow() {
+    scrolling(true);
+    $("#popUp").hide();
+}
+
 function ukazMenu()
 {
     var display =  document.getElementById("mobileMenu").style.display;
